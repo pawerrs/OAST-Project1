@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace OAST.Project1.Models
+namespace OAST.Project1.Models.Topology
 {
     public class Demand
     {

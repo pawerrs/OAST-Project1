@@ -8,6 +8,8 @@
 
         public float CrossoverProbability { get; set; }
 
+        public int LimitValue { get; set; }
+
         public StoppingCriteria StoppingCriteria { get; set; }
     }
 }

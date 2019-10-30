@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace OAST.Project1.Common.Extensions
 {
@@ -12,6 +13,19 @@ namespace OAST.Project1.Common.Extensions
                 list.RemoveAt(index);
                 return value;
             }
+        }
+
+        static long CalculateBinomialCoefficient(long n, long k)
+        {
+            long r = 1;
+            long d;
+            if (k > n) return 0;
+            for (d = 1; d <= k; d++)
+            {
+                r *= n--;
+                r /= d;
+            }
+            return r;
         }
     }
 }

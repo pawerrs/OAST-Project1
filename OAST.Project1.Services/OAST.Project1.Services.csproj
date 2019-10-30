@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\OAST.Project1.DataAccess\OAST.Project1.DataAccess.csproj" />
     <ProjectReference Include="..\OAST.Project1.Models\OAST.Project1.Models.csproj" />
   </ItemGroup>
 

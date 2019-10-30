@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using OAST.Project1.Services.BruteForce;
 
 namespace OAST.Project1.Controllers
@@ -10,6 +11,12 @@ namespace OAST.Project1.Controllers
         public BruteForceController(IBruteForceService bruteForceService)
         {
             _bruteForceService = bruteForceService;
+        }
+
+        [HttpPost]
+        public async Task SolveDAP()
+        {
+            await _bruteForceService.SolveDAP();
         }
     }
 }

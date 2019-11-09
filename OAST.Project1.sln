@@ -15,7 +15,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{7A67E315
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OAST.Project1.Services.Tests", "OAST.Project1.Services.Tests\OAST.Project1.Services.Tests.csproj", "{A7D3AAE7-F047-4043-AEC6-1A0764CCDB45}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OAST.Project1", "OAST.Project1\OAST.Project1.csproj", "{F39F0A55-71B5-4290-95D8-105C3AFE42B3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OAST.Project1", "OAST.Project1\OAST.Project1.csproj", "{F39F0A55-71B5-4290-95D8-105C3AFE42B3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OAST.Project1.DataAccess.Tests", "OAST.Project1.DataAccess.Tests\OAST.Project1.DataAccess.Tests.csproj", "{D8D6930D-BE62-4287-ABEB-F6B98B59ECEC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,12 +49,17 @@ Global
 		{F39F0A55-71B5-4290-95D8-105C3AFE42B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F39F0A55-71B5-4290-95D8-105C3AFE42B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F39F0A55-71B5-4290-95D8-105C3AFE42B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8D6930D-BE62-4287-ABEB-F6B98B59ECEC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8D6930D-BE62-4287-ABEB-F6B98B59ECEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8D6930D-BE62-4287-ABEB-F6B98B59ECEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8D6930D-BE62-4287-ABEB-F6B98B59ECEC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{A7D3AAE7-F047-4043-AEC6-1A0764CCDB45} = {7A67E315-3B84-4A18-B3F6-7D6DC3A516E3}
+		{D8D6930D-BE62-4287-ABEB-F6B98B59ECEC} = {7A67E315-3B84-4A18-B3F6-7D6DC3A516E3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DB3F59B1-8135-49FB-85A7-275D85A2022C}

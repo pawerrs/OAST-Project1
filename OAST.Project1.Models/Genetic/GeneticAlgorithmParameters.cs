@@ -10,6 +10,8 @@
 
         public int LimitValue { get; set; }
 
+        public long RandomSeed { get; set; }
+
         public StoppingCriteria StoppingCriteria { get; set; }
     }
 }

@@ -15,7 +15,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OAST.Project1", "OAST.Proje
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{7A67E315-3B84-4A18-B3F6-7D6DC3A516E3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OAST.Project1.Services.Tests", "OAST.Project1.Services.Tests\OAST.Project1.Services.Tests.csproj", "{A7D3AAE7-F047-4043-AEC6-1A0764CCDB45}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OAST.Project1.Services.Tests", "OAST.Project1.Services.Tests\OAST.Project1.Services.Tests.csproj", "{A7D3AAE7-F047-4043-AEC6-1A0764CCDB45}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

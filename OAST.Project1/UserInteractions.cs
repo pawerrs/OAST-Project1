@@ -6,7 +6,7 @@ namespace OAST.Project1
 {
     public static class UserInteractions
     {
-        public static AlgoritmType GetAlgorithmType()
+        public static AlgorithmType GetAlgorithmType()
         {
             while (true)
             {
@@ -18,7 +18,7 @@ namespace OAST.Project1
                 var userInput = Console.ReadLine();
                 if (int.TryParse(userInput, out var selectedNumber) && !(selectedNumber > 2 || selectedNumber < 1))
                 {
-                    return (AlgoritmType)selectedNumber;
+                    return (AlgorithmType)selectedNumber;
                 }
 
                 ConsoleHelpers.DisplayError(userInput);
@@ -48,20 +48,17 @@ namespace OAST.Project1
             ConsoleHelpers.ClearConsole();
             Console.WriteLine("Choose topology file. Please type in number 1,2,3");
             Console.WriteLine("1: net12_1.txt");
-            Console.WriteLine("1: net12_2.txt");
-            Console.WriteLine("1: net4.txt");
+            Console.WriteLine("2: net12_2.txt");
+            Console.WriteLine("3: net4.txt");
 
             var userInput = Console.ReadLine();
             if (int.TryParse(userInput, out var selectedNumber) && !(selectedNumber > 3 || selectedNumber < 1))
             {
                 return GetFileBasedOnUserInput(selectedNumber);
             }
-            else
-            {
-                ConsoleHelpers.DisplayError(userInput);
-                SelectTopologyFile();
-            }
-            return FileName.None;
+
+            ConsoleHelpers.DisplayError(userInput);
+            return SelectTopologyFile();
         }
 
         private static FileName GetFileBasedOnUserInput(int number)
@@ -81,19 +78,34 @@ namespace OAST.Project1
             Console.WriteLine("***********************************************************");
             Console.WriteLine("Choose problem type. Please type in number 1 or 2");
             Console.WriteLine("1: DDAP");
-            Console.WriteLine("1: DAP");
+            Console.WriteLine("2: DAP");
 
             var userInput = Console.ReadLine();
             if (int.TryParse(userInput, out var selectedNumber) && !(selectedNumber > 2 || selectedNumber < 1))
             {
                 return (ProblemType) selectedNumber;
             }
-            else
+
+            ConsoleHelpers.DisplayError(userInput);
+            return SelectProblemToSolve();
+        }
+
+        public static StoppingCriteria SelectStoppingCriteria()
+        {
+            Console.WriteLine("Choose stopping criteria for evolutionary algorithm. Please type in number 1,2,3 or 4");
+            Console.WriteLine("1: Elapsed time");
+            Console.WriteLine("2: Number of generations");
+            Console.WriteLine("3: Number of mutations");
+            Console.WriteLine("4: No improvement since last N generations");
+
+            var userInput = Console.ReadLine();
+            if (int.TryParse(userInput, out var selectedNumber) && !(selectedNumber > 4 || selectedNumber < 1))
             {
-                ConsoleHelpers.DisplayError(userInput);
-                SelectTopologyFile();
+                return (StoppingCriteria)selectedNumber;
             }
-            return ProblemType.None;
+
+            ConsoleHelpers.DisplayError(userInput);
+            return SelectStoppingCriteria();
         }
     }
 }

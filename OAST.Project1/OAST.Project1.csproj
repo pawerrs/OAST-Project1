@@ -7,6 +7,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\OAST.Project1.Common\OAST.Project1.Common.csproj" />
+    <ProjectReference Include="..\OAST.Project1.Models\OAST.Project1.Models.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -15,16 +15,14 @@ namespace OAST.Project1.Services.Genetic
 
         public async Task SolveDAP(GeneticAlgorithmParameters parameters)
         {
-            var network = _fileParser.LoadTopology(FileReader.ReadFile(@"P:\STUFF\studia\mgr\sem2\OAST\OAST.Project1.DataAccess\Input Data\net12_1"));
+            //var network = _fileParser.LoadTopology(FileReader.ReadFile(@"P:\STUFF\studia\mgr\sem2\OAST\OAST.Project1.DataAccess\Input Data\net12_1"));
 
             
         }
 
         public async Task SolveDDAP(GeneticAlgorithmParameters parameters)
         {
-            var network = _fileParser.LoadTopology(FileReader.ReadFile(@"P:\STUFF\studia\mgr\sem2\OAST\OAST.Project1.DataAccess\Input Data\net12_1"));
-
-            
+           // var network = _fileParser.LoadTopology(FileReader.ReadFile(@"P:\STUFF\studia\mgr\sem2\OAST\OAST.Project1.DataAccess\Input Data\net12_1"));
 
         }
 

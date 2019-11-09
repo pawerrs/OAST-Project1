@@ -1,4 +1,6 @@
-﻿namespace OAST.Project1.Models.Genetic
+﻿using OAST.Project1.Common.Enums;
+
+namespace OAST.Project1.Models.Genetic
 {
     public class GeneticAlgorithmParameters
     {
@@ -9,6 +11,8 @@
         public float CrossoverProbability { get; set; }
 
         public int LimitValue { get; set; }
+
+        public int RandomSeed { get; set; }
 
         public StoppingCriteria StoppingCriteria { get; set; }
     }

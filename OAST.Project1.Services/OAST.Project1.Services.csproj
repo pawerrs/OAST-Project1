@@ -1,10 +1,11 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\OAST.Project1.DataAccess\OAST.Project1.DataAccess.csproj" />
     <ProjectReference Include="..\OAST.Project1.Models\OAST.Project1.Models.csproj" />
   </ItemGroup>
 

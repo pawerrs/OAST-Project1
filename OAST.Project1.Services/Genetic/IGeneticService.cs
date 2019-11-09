@@ -5,6 +5,7 @@ namespace OAST.Project1.Services.Genetic
 {
     public interface IGeneticService
     {
-        Task SolveAllocationProblem(GeneticAlgorithmParameters parameters);
+        Task SolveDAP(GeneticAlgorithmParameters parameters);
+        Task SolveDDAP(GeneticAlgorithmParameters parameters);
     }
 }

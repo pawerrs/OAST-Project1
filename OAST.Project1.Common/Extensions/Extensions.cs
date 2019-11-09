@@ -5,16 +5,6 @@ namespace OAST.Project1.Common.Extensions
 {
     public static class Extensions
     {
-        public static T RemoveAndGet<T>(this IList<T> list, int index)
-        {
-            lock (list)
-            {
-                T value = list[index];
-                list.RemoveAt(index);
-                return value;
-            }
-        }
-
         public static bool IsPositiveAndLessThanOne(float value, bool shouldBeLessThanOne)
         {
             return value > 0 & (!shouldBeLessThanOne || value < 1);

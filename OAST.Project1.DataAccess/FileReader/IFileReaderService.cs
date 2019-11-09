@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace OAST.Project1.DataAccess.Services
+namespace OAST.Project1.DataAccess.FileReader
 {
     public interface IFileReaderService
     {

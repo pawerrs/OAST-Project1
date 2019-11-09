@@ -1,16 +1,16 @@
 ﻿using OAST.Project1.Models.Genetic;
 using System.Threading.Tasks;
-using OAST.Project1.DataAccess.ConfigHandlers;
+using OAST.Project1.DataAccess.FileParser;
 
 namespace OAST.Project1.Services.Genetic
 {
     public class GeneticService : IGeneticService
     {
-        private readonly FileParser _fileParser;
+        private readonly IFileParserService _fileParser;
 
         public GeneticService()
         {
-            _fileParser = new FileParser();
+            //_fileParser = new FileParserService();
         }
 
         public async Task SolveDAP(GeneticAlgorithmParameters parameters)

@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\OAST.Project1.Services\OAST.Project1.Services.csproj" />
+    <ProjectReference Include="..\OAST.Project1.DataAccess\OAST.Project1.DataAccess.csproj" />
   </ItemGroup>
 
 </Project>

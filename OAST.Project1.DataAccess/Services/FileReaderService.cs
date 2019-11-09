@@ -3,18 +3,17 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-namespace OAST.Project1.DataAccess.ConfigHandlers
+namespace OAST.Project1.DataAccess.Services
 {
-    public static class FileReader
+    public class FileReaderService: IFileReaderService
     {
-        public static List<string> ReadFile(string pathToTheFile)
+        public List<string> ReadFile(string pathToTheFile)
         {
-            if(File.Exists(pathToTheFile))
+            if (File.Exists(pathToTheFile))
                 return File.ReadAllLines(pathToTheFile).ToList();
 
             Console.WriteLine("File does not exist");
             return null;
-
         }
     }
 }

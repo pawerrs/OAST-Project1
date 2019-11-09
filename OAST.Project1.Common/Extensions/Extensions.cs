@@ -15,6 +15,11 @@ namespace OAST.Project1.Common.Extensions
             }
         }
 
+        public static bool IsPositiveAndLessThanOne(float value, bool shouldBeLessThanOne)
+        {
+            return value > 0 & (!shouldBeLessThanOne || value < 1);
+        }
+
         static long CalculateBinomialCoefficient(long n, long k)
         {
             long r = 1;

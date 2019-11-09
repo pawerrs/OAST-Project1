@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.421
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29411.108
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OAST.Project1.Services", "OAST.Project1.Services\OAST.Project1.Services.csproj", "{796CF1DE-E9DC-4D8A-BC5F-5EFBF4D8ADEC}"
 EndProject
@@ -11,11 +11,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OAST.Project1.DataAccess", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OAST.Project1.Common", "OAST.Project1.Common\OAST.Project1.Common.csproj", "{4B4AA279-CF85-4F6B-8DD9-5DE498528D72}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OAST.Project1", "OAST.Project1\OAST.Project1.csproj", "{45F03116-8FCF-4B69-8B9C-E12E3EAE5BEB}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{7A67E315-3B84-4A18-B3F6-7D6DC3A516E3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OAST.Project1.Services.Tests", "OAST.Project1.Services.Tests\OAST.Project1.Services.Tests.csproj", "{A7D3AAE7-F047-4043-AEC6-1A0764CCDB45}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OAST.Project1.Services.Tests", "OAST.Project1.Services.Tests\OAST.Project1.Services.Tests.csproj", "{A7D3AAE7-F047-4043-AEC6-1A0764CCDB45}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OAST.Project1", "OAST.Project1\OAST.Project1.csproj", "{F39F0A55-71B5-4290-95D8-105C3AFE42B3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,14 +39,14 @@ Global
 		{4B4AA279-CF85-4F6B-8DD9-5DE498528D72}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4B4AA279-CF85-4F6B-8DD9-5DE498528D72}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4B4AA279-CF85-4F6B-8DD9-5DE498528D72}.Release|Any CPU.Build.0 = Release|Any CPU
-		{45F03116-8FCF-4B69-8B9C-E12E3EAE5BEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{45F03116-8FCF-4B69-8B9C-E12E3EAE5BEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{45F03116-8FCF-4B69-8B9C-E12E3EAE5BEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{45F03116-8FCF-4B69-8B9C-E12E3EAE5BEB}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A7D3AAE7-F047-4043-AEC6-1A0764CCDB45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A7D3AAE7-F047-4043-AEC6-1A0764CCDB45}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A7D3AAE7-F047-4043-AEC6-1A0764CCDB45}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A7D3AAE7-F047-4043-AEC6-1A0764CCDB45}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F39F0A55-71B5-4290-95D8-105C3AFE42B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F39F0A55-71B5-4290-95D8-105C3AFE42B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F39F0A55-71B5-4290-95D8-105C3AFE42B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F39F0A55-71B5-4290-95D8-105C3AFE42B3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

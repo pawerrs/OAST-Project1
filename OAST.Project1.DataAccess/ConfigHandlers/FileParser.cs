@@ -55,7 +55,7 @@ namespace OAST.Project1.DataAccess.ConfigHandlers
                 EndNode = parameters[1],
                 NumberOfModules = parameters[2],
                 ModuleCost = parameters[3],
-                LinkModule = parameters[4]
+                CapacityPerModule = parameters[4]
             };
         }
 

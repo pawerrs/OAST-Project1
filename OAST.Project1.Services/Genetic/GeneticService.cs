@@ -3,7 +3,9 @@ using System.Diagnostics;
 using OAST.Project1.Models.Genetic;
 using OAST.Project1.Common.Enums;
 using OAST.Project1.DataAccess.FileParser;
+using OAST.Project1.DataAccess.FileReader;
 using OAST.Project1.Models.Common;
+using OAST.Project1.Models.Topology;
 
 namespace OAST.Project1.Services.Genetic
 {
@@ -13,11 +15,15 @@ namespace OAST.Project1.Services.Genetic
         private readonly FileName _fileName;
         private readonly ProblemType _problemType;
         private readonly GeneticAlgorithmParameters _parameters;
+        private readonly Network _network;
 
         public GeneticService(MenuOptions menuOptions)
         {
-            //_fileParser = new FileParserService();
+            var fileReaderService = new FileReaderService();
+            var fileName = fileReaderService.GetFileName(menuOptions.FileName);
 
+            _fileParser = new FileParserService(new FileReaderService(), fileName);
+            _network = _fileParser.LoadTopology(_fileParser.GetConfigurationLines());
             _parameters = menuOptions.GeneticAlgorithmParameters;
             _fileName = menuOptions.FileName;
             _problemType = menuOptions.ProblemType;

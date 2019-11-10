@@ -1,5 +1,6 @@
 ﻿using OAST.Project1.Common.Enums;
 using OAST.Project1.Models.Common;
+using OAST.Project1.Services.Optimization;
 
 namespace OAST.Project1
 {
@@ -8,18 +9,9 @@ namespace OAST.Project1
         static void Main(string[] args)
         {
             var menuOptions = Menu.DisplayMenu();
-        }
 
-        private static void SolveGivenProblem(MenuOptions menuOptions)
-        {
-            if (menuOptions.AlgorithmType == AlgorithmType.BruteForce)
-            {
-                //TODO: Call brute force service
-            }
-            else if (menuOptions.AlgorithmType == AlgorithmType.Evolutionary)
-            {
-                //TODO: Call evolutionary service 
-            }
+            var optimizationService = new OptimizationService(menuOptions);
+            optimizationService.OptimizeNetwork();
         }
     }
 }

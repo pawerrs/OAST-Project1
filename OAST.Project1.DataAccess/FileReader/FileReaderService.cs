@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using OAST.Project1.Common.Enums;
 
 namespace OAST.Project1.DataAccess.FileReader
 {
-    public class FileReaderService: IFileReaderService
+    public class FileReaderService : IFileReaderService
     {
         public List<string> ReadFile(string pathToTheFile)
         {
@@ -14,6 +15,11 @@ namespace OAST.Project1.DataAccess.FileReader
 
             Console.WriteLine("File does not exist");
             return null;
+        }
+
+        public string GetFileName(FileName fileName)
+        {
+            return $"{fileName.ToString().ToLower()}.txt";
         }
     }
 }

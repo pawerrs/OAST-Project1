@@ -1,27 +1,26 @@
 ﻿using System;
 using System.Diagnostics;
 using OAST.Project1.Models.Genetic;
-using System.Threading.Tasks;
 using OAST.Project1.Common.Enums;
-using OAST.Project1.DataAccess.ConfigHandlers;
+using OAST.Project1.DataAccess.FileParser;
 using OAST.Project1.Models.Common;
 
 namespace OAST.Project1.Services.Genetic
 {
     public class GeneticService
     {
-        private readonly FileParser _fileParser;
+        private readonly IFileParserService _fileParser;
         private readonly FileName _fileName;
         private readonly ProblemType _problemType;
         private readonly GeneticAlgorithmParameters _parameters;
 
         public GeneticService(MenuOptions menuOptions)
         {
+            //_fileParser = new FileParserService();
+
             _parameters = menuOptions.GeneticAlgorithmParameters;
             _fileName = menuOptions.FileName;
             _problemType = menuOptions.ProblemType;
-
-            _fileParser = new FileParser();
         }
 
         public void Solve()

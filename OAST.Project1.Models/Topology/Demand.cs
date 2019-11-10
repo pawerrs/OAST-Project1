@@ -10,5 +10,15 @@ namespace OAST.Project1.Models.Topology
         public int Volume { get; set; }
         public int NumberOfDemandPaths { get; set; }
         public IEnumerable<DemandPath> DemandPaths { get; set; }
+
+        public Demand(int id, int startNode, int endNode, int volume, int numberOfDemandPaths, IEnumerable<DemandPath> demandPaths)
+        {
+            Id = id;
+            StartNode = startNode;
+            EndNode = endNode;
+            Volume = volume;
+            NumberOfDemandPaths = numberOfDemandPaths;
+            DemandPaths = demandPaths;
+        }
     }
 }

@@ -1,7 +1,7 @@
 ﻿
 using System;
 using System.IO;
-using OAST.Project1.DataAccess.Services;
+using OAST.Project1.DataAccess.FileReader;
 using Xunit;
 
 namespace OAST.Project1.DataAccess.Tests.FileReader
@@ -54,7 +54,7 @@ namespace OAST.Project1.DataAccess.Tests.FileReader
             var fileLinesOfBigTextFile = _fileReaderService.ReadFile(pathToBigTextFile);
 
             //Assert
-            Assert.Equal(460, fileLinesOfBigTextFile.Count);
+            Assert.Equal(461, fileLinesOfBigTextFile.Count);
         }
 
         [Fact]

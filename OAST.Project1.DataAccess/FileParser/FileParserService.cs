@@ -40,7 +40,7 @@ namespace OAST.Project1.DataAccess.FileParser
         public IEnumerable<Link> LoadAllLinks()
         {
             var temp = new List<Link>();
-
+            int id = 1;
             for (var i = 0; i <= _fileLines.Count; i++)
             {
                 if (_fileLines[_currentLineNumber].Equals(Separator))
@@ -48,17 +48,17 @@ namespace OAST.Project1.DataAccess.FileParser
                     _currentLineNumber++;
                     break;
                 }
-                temp.Add(GetOneLink(_fileLines[_currentLineNumber]));
+                temp.Add(GetOneLink(_fileLines[_currentLineNumber], ref id));
                 _currentLineNumber++;
             }
             return temp;
         }
 
-        public Link GetOneLink(string line)
+        public Link GetOneLink(string line, ref int id)
         {
             var parameters = Array.ConvertAll(line.Split(null), int.Parse);
 
-            return new Link(parameters[0], parameters[1], parameters[2], parameters[3], parameters[4]);
+            return new Link(id++,parameters[0], parameters[1], parameters[2], parameters[3], parameters[4]);
         }
 
         public int GetNumberOfDemands()
@@ -116,9 +116,9 @@ namespace OAST.Project1.DataAccess.FileParser
             var id = 0;
             foreach (var path in lines)
             {
-                var paths = Array.ConvertAll(path.Split(null), int.Parse);
+                var linkList = Array.ConvertAll(path.Split(null), int.Parse);
 
-                yield return new DemandPath(++id, paths);
+                yield return new DemandPath(++id, linkList);
             }
         }
 

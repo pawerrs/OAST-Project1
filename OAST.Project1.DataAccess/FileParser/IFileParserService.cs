@@ -8,7 +8,7 @@ namespace OAST.Project1.DataAccess.FileParser
         Network LoadTopology(List<string> fileLines);
         int GetNumberOfLinks();
         IEnumerable<Link> LoadAllLinks();
-        Link GetOneLink(string line);
+        Link GetOneLink(string line, ref int id);
         int GetNumberOfDemands();
         IEnumerable<Demand> LoadAllDemands();
         List<string> GetDemandSection();

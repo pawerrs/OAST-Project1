@@ -19,10 +19,10 @@ namespace OAST.Project1.Services.Genetic
 
         public GeneticService(MenuOptions menuOptions)
         {
-            var fileReaderService = new FileReaderService();
+            IFileReaderService fileReaderService = new FileReaderService();
             var fileName = fileReaderService.GetFileName(menuOptions.FileName);
 
-            _fileParser = new FileParserService(new FileReaderService(), fileName);
+            _fileParser = new FileParserService(fileReaderService, fileName);
             _network = _fileParser.LoadTopology(_fileParser.GetConfigurationLines());
             _parameters = menuOptions.GeneticAlgorithmParameters;
             _fileName = menuOptions.FileName;

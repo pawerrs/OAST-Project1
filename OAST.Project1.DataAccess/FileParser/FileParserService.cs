@@ -34,12 +34,11 @@ namespace OAST.Project1.DataAccess.FileParser
 
         public int GetNumberOfLinks()
         {
-            return int.Parse(_fileLines[0]);
+            return int.Parse(_fileLines[_currentLineNumber++]);
         }
 
         public IEnumerable<Link> LoadAllLinks()
         {
-            _currentLineNumber = 1;
             var temp = new List<Link>();
 
             for (var i = 0; i <= _fileLines.Count; i++)

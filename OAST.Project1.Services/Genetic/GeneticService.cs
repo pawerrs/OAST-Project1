@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using OAST.Project1.Models.Genetic;
 using OAST.Project1.Common.Enums;
 using OAST.Project1.DataAccess.FileParser;
 using OAST.Project1.DataAccess.FileReader;
 using OAST.Project1.Models.Common;
+using OAST.Project1.Models.Genetic.NetworkOptimization;
 using OAST.Project1.Models.Topology;
 
 namespace OAST.Project1.Services.Genetic
@@ -43,18 +45,27 @@ namespace OAST.Project1.Services.Genetic
                     break;
             }
 
-            OptimizeWithGeneticAlgorithm(fitnessFunction);
+            OptimizeWithGeneticAlgorithm<NetworkSolution>(fitnessFunction);
         }
 
-        private void OptimizeWithGeneticAlgorithm(Action fitnessFunction)
+        private void OptimizeWithGeneticAlgorithm<T>(Action fitnessFunction)
         {
-            var status = new GeneticAlgorithmState
+            var state = new GeneticAlgorithmState
             {
                 ElapsedTime = Stopwatch.StartNew(),
                 NumberOfGenerations = 0,
                 NumberOfGenerationsWithoutImprovement = 0,
                 NumberOfMutations = 0
             };
+
+            var random = new Random(_parameters.RandomSeed);
+            
+            var population = GenerateInitialPopulation<T>();
+
+            while (!EvaluateStoppingCriteria(state))
+            {
+
+            }
         }
 
         private void EvaluateDDAPSolution()
@@ -68,9 +79,22 @@ namespace OAST.Project1.Services.Genetic
 
         }
 
-        private void GenerateInitialPopulation()
+        private Population<T> GenerateInitialPopulation<T>()
         {
+            var population = new Population<T>();
+            population.Chromosomes = new List<T>();
 
+            for (var i = 0; i < _parameters.InitialPopulationSize; i++)
+            {
+
+            }
+
+            return population;
+        }
+
+        private T CreateRandomChromosome<T>() where T : new()
+        {
+            return new T();
         }
 
         private bool EvaluateStoppingCriteria(GeneticAlgorithmState state) =>

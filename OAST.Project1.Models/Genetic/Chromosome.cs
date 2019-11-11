@@ -7,7 +7,7 @@ namespace OAST.Project1.Models.Genetic
     {
         public int Fitness { get; set; }
 
-        public abstract List<Chromosome> Crossover(Chromosome secondParent, Random random);
+        public abstract List<Chromosome> Crossover(Chromosome chromosomeToCrossWith, Random random);
 
         public abstract Chromosome Mutate(Random random);
     }

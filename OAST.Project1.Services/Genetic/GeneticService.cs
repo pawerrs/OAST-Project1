@@ -29,7 +29,7 @@ namespace OAST.Project1.Services.Genetic
             _problemType = menuOptions.ProblemType;
         }
         
-        private void Solve()
+        public void Solve()
         {
             var state = new GeneticAlgorithmState
             {
@@ -67,7 +67,7 @@ namespace OAST.Project1.Services.Genetic
                 children = MutateChildren(children, state, random);
                 children = EvaluateFitness(children);
 
-                population.Chromosomes = SelectSurvivors(population.Chromosomes, children);
+                population = SelectSurvivors(population, children);
                 state.NumberOfGenerations++;
             }
         }
@@ -149,13 +149,15 @@ namespace OAST.Project1.Services.Genetic
             return children;
         }
 
-        private List<Chromosome> SelectSurvivors(List<Chromosome> population, List<Chromosome> children)
+        private Population SelectSurvivors(Population population, List<Chromosome> children)
         {
-            var weakestChromosomes = population.OrderBy(x => x.Fitness).Take(2).ToList();
-            var newGeneration = population.OrderByDescending(x => x.Fitness).Take(8);
+            var weakestChromosomes = population.Chromosomes.OrderBy(x => x.Fitness).Take(2).ToList();
+            var newGeneration = population.Chromosomes.OrderByDescending(x => x.Fitness).Take(8);
             var candidates = weakestChromosomes.Concat(children);
 
-            return newGeneration.Concat(candidates.OrderByDescending(x => x.Fitness).Take(2)).ToList();
+            newGeneration = newGeneration.Concat(candidates.OrderByDescending(x => x.Fitness).Take(2)).ToList();
+
+            return new Population(newGeneration.ToList());
         }
 
         private Population GenerateInitialPopulation(Random random)

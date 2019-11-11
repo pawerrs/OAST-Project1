@@ -36,9 +36,9 @@ namespace OAST.Project1.Models.Topology
 
         public Dictionary<Demand, Dictionary<int, List<DemandPathLoad>>> PossibleDemandPathLoads { get; set; }
 
-        public override List<Chromosome> Crossover(Chromosome secondParent, Random random)
+        public override List<Chromosome> Crossover(Chromosome chromosomeToCrossWith, Random random)
         {
-            var parent2 = (NetworkSolution) secondParent;
+            var parent2 = (NetworkSolution) chromosomeToCrossWith;
 
             var crossoverPoint = random.Next(FlowAllocations.Count - 1);
             var firstPartLength = crossoverPoint;

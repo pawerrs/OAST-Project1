@@ -24,7 +24,7 @@ namespace OAST.Project1.Models.Topology
                 NumberOfDemands = NumberOfDemands,
                 Links = new List<Link>(Links),
                 Demands = new List<Demand>(Demands),
-                PossibleLinkLoads = new List<PossibleDemandPathLoadSet>(PossibleLinkLoads)
+                PossibleLinkLoads = new List<PossibleDemandPathLoadSet>()
             };
         }
     }

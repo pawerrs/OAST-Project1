@@ -29,13 +29,15 @@ namespace OAST.Project1.Services.BruteForce
 
         public OptimizationResult OptimizeNetwork()
         {
-           
+            Console.WriteLine("Enumerating combinations...");
             foreach (Demand demand in _network.Demands)
             {
                 DemandDistributions demandDistributions = new DemandDistributions(demand.Id);
                 demandDistributions.FindAllDistributions(demand.Volume, demand.NumberOfDemandPaths);
                 _allDistributions.Add(demandDistributions);
             }
+
+            Console.WriteLine("All possible combinations enumerated.");
 
             OptimizationResult result = FindCheapestPath();
 
@@ -44,6 +46,8 @@ namespace OAST.Project1.Services.BruteForce
 
         private OptimizationResult FindCheapestPath()
         {
+            Console.WriteLine("Calculating cheapest path...");
+
             OptimizationResult result = new OptimizationResult();
             int[] chosenDemandDistribution = new int[_allDistributions.Count()];
             for (int i=0; i<chosenDemandDistribution.Length; i++)

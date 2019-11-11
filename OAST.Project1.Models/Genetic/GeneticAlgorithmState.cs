@@ -11,5 +11,7 @@ namespace OAST.Project1.Models.Genetic
         public int NumberOfMutations { get; set; }
 
         public int NumberOfGenerationsWithoutImprovement { get; set; }
+
+        public Chromosome BestChromosome { get; set; }
     }
 }

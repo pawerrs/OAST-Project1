@@ -15,5 +15,17 @@ namespace OAST.Project1.Models.Topology
         {
             return PossibleLinkLoads.Single(x => x.Demand.Id == demandId);
         }
+
+        public Network Clone()
+        {
+            return new Network
+            {
+                NumberOfLinks = NumberOfLinks,
+                NumberOfDemands = NumberOfDemands,
+                Links = new List<Link>(Links),
+                Demands = new List<Demand>(Demands),
+                PossibleLinkLoads = new List<PossibleDemandPathLoadSet>(PossibleLinkLoads)
+            };
+        }
     }
 }

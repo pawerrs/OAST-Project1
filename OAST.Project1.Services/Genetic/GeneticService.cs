@@ -6,8 +6,8 @@ using OAST.Project1.Common.Enums;
 using OAST.Project1.DataAccess.FileParser;
 using OAST.Project1.DataAccess.FileReader;
 using OAST.Project1.Models.Common;
-using OAST.Project1.Models.Genetic.NetworkOptimization;
 using OAST.Project1.Models.Topology;
+using OAST.Project1.Services.Helpers;
 
 namespace OAST.Project1.Services.Genetic
 {
@@ -45,10 +45,10 @@ namespace OAST.Project1.Services.Genetic
                     break;
             }
 
-            OptimizeWithGeneticAlgorithm<NetworkSolution>(fitnessFunction);
+            OptimizeWithGeneticAlgorithm(fitnessFunction);
         }
 
-        private void OptimizeWithGeneticAlgorithm<T>(Action fitnessFunction)
+        private void OptimizeWithGeneticAlgorithm(Action fitnessFunction)
         {
             var state = new GeneticAlgorithmState
             {
@@ -58,9 +58,11 @@ namespace OAST.Project1.Services.Genetic
                 NumberOfMutations = 0
             };
 
+            _network.PossibleLinkLoads = NetworkHelper.GetPossibleDemandPathLoadSets(_network);
+
             var random = new Random(_parameters.RandomSeed);
-            
-            var population = GenerateInitialPopulation<T>();
+
+            var population = GenerateInitialPopulation(random);
 
             while (!EvaluateStoppingCriteria(state))
             {
@@ -79,22 +81,22 @@ namespace OAST.Project1.Services.Genetic
 
         }
 
-        private Population<T> GenerateInitialPopulation<T>()
+        private Population GenerateInitialPopulation(Random random)
         {
-            var population = new Population<T>();
-            population.Chromosomes = new List<T>();
+            var chromosomes = new List<Chromosome>();
 
             for (var i = 0; i < _parameters.InitialPopulationSize; i++)
             {
-
+                var chromosome = CreateRandomChromosome(random);
+                chromosomes.Add(CreateRandomChromosome(random));
             }
 
-            return population;
+            return new Population(chromosomes);
         }
 
-        private T CreateRandomChromosome<T>() where T : new()
+        private Chromosome CreateRandomChromosome(Random random)
         {
-            return new T();
+            return new NetworkSolution(_network, random);
         }
 
         private bool EvaluateStoppingCriteria(GeneticAlgorithmState state) =>

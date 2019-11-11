@@ -1,5 +1,10 @@
-﻿using OAST.Project1.Models.Output;
+﻿using OAST.Project1.Common.Enums;
+using OAST.Project1.DataAccess.FileParser;
+using OAST.Project1.DataAccess.FileReader;
+using OAST.Project1.Models.Common;
+using OAST.Project1.Models.Output;
 using OAST.Project1.Models.Topology;
+using OAST.Project1.Services.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,11 +15,17 @@ namespace OAST.Project1.Services.BruteForce
     public class BruteForceService : IBruteForceService
     {
         private readonly Network _network;
+        private FileParserService _fileParser; 
         private List<DemandDistributions> _allDistributions = new List<DemandDistributions>();
-        public BruteForceService()
+        private DDAPCostCalculator calculator;
+        public BruteForceService(MenuOptions menuOptions)
         {
-            //_network = new FileParser().LoadTopology(
-            //    FileReader.ReadFile(@"P:\STUFF\studia\mgr\sem2\OAST\OAST.Project1.DataAccess\Input Data\net12_1"));
+            IFileReaderService fileReaderService = new FileReaderService();
+            var fileName = fileReaderService.GetFileName(menuOptions.FileName);
+
+            _fileParser = new FileParserService(fileReaderService, fileName);
+            _network = _fileParser.LoadTopology(_fileParser.GetConfigurationLines());
+            calculator = new DDAPCostCalculator();
         }
 
         public async Task SolveDAP()
@@ -58,16 +69,25 @@ namespace OAST.Project1.Services.BruteForce
             bool finishFlag = true;
             while (finishFlag)
             {
-                result = CountNetworkCost(chosenDemandDistribution);
+                CountNetworkCost(chosenDemandDistribution);
                 ChangePathCombination(ref finishFlag, chosenDemandDistribution, 0);
             }
 
             return result;
         }
 
-        private OptimizationResult CountNetworkCost(int[] chosenDemandDistribution)
+        private void CountNetworkCost(int[] chosenDemandDistribution)
         {
-            throw new NotImplementedException();
+            Network networkToCalculate = _network;
+            for (int demandIndex = 0; demandIndex < chosenDemandDistribution.Length; demandIndex++)
+            {
+                for (int pathIndex = 0; pathIndex < networkToCalculate.Demands[demandIndex].DemandPaths.Count(); pathIndex++)
+                {
+                    networkToCalculate.Demands[demandIndex].DemandPaths[pathIndex].Load = _allDistributions[demandIndex].distributions[chosenDemandDistribution[demandIndex]][pathIndex];
+                }
+            }
+
+            calculator.CalculateDDAPCost(networkToCalculate);
         }
 
         private void ChangePathCombination(ref bool finishFlag, int[] chosenDemandDistributions, int position)

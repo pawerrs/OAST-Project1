@@ -1,5 +1,6 @@
 ﻿using OAST.Project1.Common.Enums;
 using OAST.Project1.Models.Common;
+using OAST.Project1.Services.BruteForce;
 using OAST.Project1.Services.Genetic;
 
 namespace OAST.Project1.Services.Optimization
@@ -16,7 +17,8 @@ namespace OAST.Project1.Services.Optimization
         {
             if (_menuOptions.AlgorithmType == AlgorithmType.BruteForce)
             {
-                //TODO: Call brute force service
+                var bruteForceService = new BruteForceService(_menuOptions);
+                bruteForceService.OptimizeNetwork();
             }
             else if (_menuOptions.AlgorithmType == AlgorithmType.Evolutionary)
             {

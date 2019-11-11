@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace OAST.Project1.Models.Topology
 {
@@ -9,9 +10,9 @@ namespace OAST.Project1.Models.Topology
         public int EndNode { get; set; }
         public int Volume { get; set; }
         public int NumberOfDemandPaths { get; set; }
-        public IEnumerable<DemandPath> DemandPaths { get; set; }
+        public List<DemandPath> DemandPaths { get; set; }
 
-        public Demand(int id, int startNode, int endNode, int volume, int numberOfDemandPaths, IEnumerable<DemandPath> demandPaths)
+        public Demand(int id, int startNode, int endNode, int volume, int numberOfDemandPaths, List<DemandPath> demandPaths)
         {
             Id = id;
             StartNode = startNode;

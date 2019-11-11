@@ -5,8 +5,8 @@ namespace OAST.Project1.Models.Topology
     public class Network
     {
         public int NumberOfLinks { get; set; } = 0;
-        public IEnumerable<Link> Links { get; set; }
+        public List<Link> Links { get; set; }
         public int NumberOfDemands { get; set; } = 0;
-        public IEnumerable<Demand> Demands { get; set; }
+        public List<Demand> Demands { get; set; }
     }
 }

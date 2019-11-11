@@ -26,9 +26,9 @@ namespace OAST.Project1.DataAccess.FileParser
         {
             _fileLines = fileLines;
             _network.NumberOfLinks = GetNumberOfLinks();
-            _network.Links = LoadAllLinks();
+            _network.Links = LoadAllLinks().ToList();
             _network.NumberOfDemands = GetNumberOfDemands();
-            _network.Demands = LoadAllDemands();
+            _network.Demands = LoadAllDemands().ToList();
             return _network;
         }
 
@@ -108,7 +108,7 @@ namespace OAST.Project1.DataAccess.FileParser
             var firstLine = Array.ConvertAll(demandSection[0].Split(null), int.Parse);
 
             return new Demand(++_demandId, firstLine[0], firstLine[1], firstLine[2],
-                int.Parse(demandSection[1].Trim()), GetDemandPath(demandSection.Skip(2)));
+                int.Parse(demandSection[1].Trim()), GetDemandPath(demandSection.Skip(2)).ToList());
         }
 
         public IEnumerable<DemandPath> GetDemandPath(IEnumerable<string> lines)

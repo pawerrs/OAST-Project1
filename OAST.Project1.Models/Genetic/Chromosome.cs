@@ -1,7 +1,14 @@
-﻿namespace OAST.Project1.Models.Genetic
+﻿using System;
+using System.Collections.Generic;
+
+namespace OAST.Project1.Models.Genetic
 {
     public abstract class Chromosome
     {
-        public abstract Chromosome CreateRandomChromosome(int seed);
+        public int Fitness { get; set; }
+
+        public abstract List<Chromosome> Crossover(Chromosome chromosomeToCrossWith, Random random);
+
+        public abstract Chromosome Mutate(Random random);
     }
 }

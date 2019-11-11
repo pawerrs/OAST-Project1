@@ -22,5 +22,23 @@ namespace OAST.Project1.Common.Extensions
             }
             return r;
         }
+
+        public static long CalculateCombinationsWithRepetitionCount(long n, long k)
+        {
+            var numerator = Factorial(n + k - 1);
+            var denominator = Factorial(k) * Factorial(n - 1);
+
+            return numerator / denominator;
+        }
+
+        public static long Factorial(long f)
+        {
+            if (f == 0)
+            {
+                return 1;
+            }
+
+            return f * Factorial(f - 1);
+        }
     }
 }

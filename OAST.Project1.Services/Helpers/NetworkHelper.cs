@@ -22,7 +22,7 @@ namespace OAST.Project1.Services.Helpers
             return linkSizes.Sum(x => x * linkCost);
         }
 
-        public static IEnumerable<PossibleDemandPathLoadSet> GetPossibleDemandPathLoadSets(Network network)
+        public static List<PossibleDemandPathLoadSet> GetPossibleDemandPathLoadSets(Network network)
         {
             return network.Demands
                 .Select(demand => new PossibleDemandPathLoadSet {Demand = demand, PossibleDemandPathLoads = GetDemandPathLoadsForDemand(demand)})

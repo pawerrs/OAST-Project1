@@ -18,6 +18,7 @@ namespace OAST.Project1.Services.BruteForce
         private FileParserService _fileParser; 
         private List<DemandDistributions> _allDistributions = new List<DemandDistributions>();
         private DDAPCostCalculator calculator;
+        private OptimizationResult bestOptimizationResult;
         public BruteForceService(MenuOptions menuOptions)
         {
             IFileReaderService fileReaderService = new FileReaderService();
@@ -26,6 +27,8 @@ namespace OAST.Project1.Services.BruteForce
             _fileParser = new FileParserService(fileReaderService, fileName);
             _network = _fileParser.LoadTopology(_fileParser.GetConfigurationLines());
             calculator = new DDAPCostCalculator();
+            bestOptimizationResult = new OptimizationResult(_network);
+            bestOptimizationResult.TotalCost = Double.MaxValue;
         }
 
         public async Task SolveDAP()
@@ -38,7 +41,7 @@ namespace OAST.Project1.Services.BruteForce
             throw new System.NotImplementedException();
         }
 
-        public OptimizationResult OptimizeNetwork()
+        public void OptimizeNetwork()
         {
             Console.WriteLine("Enumerating combinations...");
             foreach (Demand demand in _network.Demands)
@@ -49,17 +52,24 @@ namespace OAST.Project1.Services.BruteForce
             }
 
             Console.WriteLine("All possible combinations enumerated.");
-
-            OptimizationResult result = FindCheapestPath();
-
-            return result;
+            ShowNumberOfCombinations();
+            FindCheapestPath();
+            Console.WriteLine("All possible combinations checked. BruteForce algorythm has finished.");
         }
 
-        private OptimizationResult FindCheapestPath()
+        private void ShowNumberOfCombinations()
         {
-            Console.WriteLine("Calculating cheapest path...");
+            int numberOfCombinations = 1;
+            foreach(DemandDistributions demandDistributions in _allDistributions)
+            {
+                numberOfCombinations *= demandDistributions.distributions.Count();
+            }
+            Console.WriteLine("Please wait where {0} combinations are checked to find cheapest one...", numberOfCombinations);
+        }
 
-            OptimizationResult result = new OptimizationResult();
+        private void FindCheapestPath()
+        {
+
             int[] chosenDemandDistribution = new int[_allDistributions.Count()];
             for (int i=0; i<chosenDemandDistribution.Length; i++)
             {
@@ -73,12 +83,11 @@ namespace OAST.Project1.Services.BruteForce
                 ChangePathCombination(ref finishFlag, chosenDemandDistribution, 0);
             }
 
-            return result;
         }
 
         private void CountNetworkCost(int[] chosenDemandDistribution)
         {
-            Network networkToCalculate = _network;
+            Network networkToCalculate = _network.Clone();
             for (int demandIndex = 0; demandIndex < chosenDemandDistribution.Length; demandIndex++)
             {
                 for (int pathIndex = 0; pathIndex < networkToCalculate.Demands[demandIndex].DemandPaths.Count(); pathIndex++)
@@ -86,8 +95,12 @@ namespace OAST.Project1.Services.BruteForce
                     networkToCalculate.Demands[demandIndex].DemandPaths[pathIndex].Load = _allDistributions[demandIndex].distributions[chosenDemandDistribution[demandIndex]][pathIndex];
                 }
             }
-
-            calculator.CalculateDDAPCost(networkToCalculate);
+            OptimizationResult calculationResult = calculator.CalculateDDAPCost(networkToCalculate);
+            if (bestOptimizationResult.TotalCost > calculationResult.TotalCost)
+            {
+                bestOptimizationResult = calculationResult;
+                Console.WriteLine("Network cost reduced to {0}", bestOptimizationResult.TotalCost);
+            }
         }
 
         private void ChangePathCombination(ref bool finishFlag, int[] chosenDemandDistributions, int position)

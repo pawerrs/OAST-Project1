@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace OAST.Project1.Models.Topology
@@ -22,10 +23,19 @@ namespace OAST.Project1.Models.Topology
             {
                 NumberOfLinks = NumberOfLinks,
                 NumberOfDemands = NumberOfDemands,
-                Links = new List<Link>(Links),
+                Links = CloneLinkList(Links),
                 Demands = new List<Demand>(Demands),
                 PossibleLinkLoads = new List<PossibleDemandPathLoadSet>()
             };
+        }
+
+        private List<Link> CloneLinkList(List<Link> links)
+        {
+            foreach(Link link in links)
+            {
+                link.TotalLoad = 0;
+            }
+            return links;
         }
     }
 }

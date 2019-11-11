@@ -5,12 +5,12 @@ namespace OAST.Project1.Models.Topology
     {
         public int Id { get; set; }
         public int Load { get; set; }
-        public int[] Paths { get; set; }
+        public int[] LinkList { get; set; }
 
-        public DemandPath(int id, int[] paths)
+        public DemandPath(int id, int[] linkList)
         {
             Id = id;
-            Paths = paths;
+            LinkList = linkList;
         }
     }
 }

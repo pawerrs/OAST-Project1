@@ -37,15 +37,17 @@ namespace OAST.Project1.DataAccess.Tests.FileParser
         public void GetOneLink_ShouldReturnProperLinkObject()
         {
             //Arrange
-            var firstExpectedLinkObject = new Link(1,11,2,1,96);
+            int firstId = 1;
+            var firstExpectedLinkObject = new Link(firstId, 1,11,2,1,96);
             const int firstLinkLine = 1;
 
-            var lastExpectedLinkObject = new Link(1, 6, 2, 1, 96); ;
+            int lastId = 18;
+            var lastExpectedLinkObject = new Link(lastId, 1, 6, 2, 1, 96); ;
             const int lastLinkLine = 18;
 
             //Act
-            var firstLink = _fileParserService.GetOneLink(_fileLines[firstLinkLine]);
-            var lastLink = _fileParserService.GetOneLink(_fileLines[lastLinkLine]);
+            var firstLink = _fileParserService.GetOneLink(_fileLines[firstLinkLine], ref firstId);
+            var lastLink = _fileParserService.GetOneLink(_fileLines[lastLinkLine], ref lastId);
 
             //Assert
             firstExpectedLinkObject.Should().BeEquivalentTo(firstLink);
@@ -56,26 +58,27 @@ namespace OAST.Project1.DataAccess.Tests.FileParser
         public void LoadAllLinks_ShouldReturnAllLinks()
         {
             //Arrange
+            _fileParserService.SetCurrentLineNumber(1);
             var links = new List<Link>
             {
-                new Link(1, 11, 2, 1, 96),
-                new Link(1, 3, 2, 1, 96),
-                new Link(2, 3, 2, 1, 96),
-                new Link(2, 8, 2, 1, 96),
-                new Link(2, 11, 2, 1, 96),
-                new Link(3, 10, 2, 1, 96),
-                new Link(4, 5, 2, 1, 96),
-                new Link(4, 7, 2, 1, 96),
-                new Link(4, 12, 2, 1, 96),
-                new Link(5, 9, 2, 1, 96),
-                new Link(5, 11, 2, 1, 96),
-                new Link(6, 9, 2, 1, 96),
-                new Link(6, 11, 2, 1, 96),
-                new Link(7, 11, 2, 1, 96),
-                new Link(7, 12, 2, 1, 96),
-                new Link(8, 10, 2, 1, 96),
-                new Link(8, 12, 2, 1, 96),
-                new Link(1, 6, 2, 1, 96)
+                new Link(1, 1, 11, 2, 1, 96),
+                new Link(2, 1, 3, 2, 1, 96),
+                new Link(3, 2, 3, 2, 1, 96),
+                new Link(4, 2, 8, 2, 1, 96),
+                new Link(5, 2, 11, 2, 1, 96),
+                new Link(6, 3, 10, 2, 1, 96),
+                new Link(7,4, 5, 2, 1, 96),
+                new Link(8, 4, 7, 2, 1, 96),
+                new Link(9, 4, 12, 2, 1, 96),
+                new Link(10, 5, 9, 2, 1, 96),
+                new Link(11, 5, 11, 2, 1, 96),
+                new Link(12, 6, 9, 2, 1, 96),
+                new Link(13, 6, 11, 2, 1, 96),
+                new Link(14, 7, 11, 2, 1, 96),
+                new Link(15, 7, 12, 2, 1, 96),
+                new Link(16, 8, 10, 2, 1, 96),
+                new Link(17, 8, 12, 2, 1, 96),
+                new Link(18, 1, 6, 2, 1, 96)
             };
 
             //Act

@@ -4,8 +4,8 @@ using System.Text;
 
 namespace OAST.Project1.Models.Genetic
 {
-    public class Population
+    public class Population<T>
     {
-
+        public List<T> Chromosomes { get; set; }
     }
 }

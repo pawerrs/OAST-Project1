@@ -2,7 +2,8 @@
 namespace OAST.Project1.Models.Topology
 {
     public class Link
-    { 
+    {
+        public int LinkId { get; set; }
         public int StartNode { get; set; }
         public int EndNode { get; set; }
         public int NumberOfModules { get; set; }
@@ -11,8 +12,9 @@ namespace OAST.Project1.Models.Topology
         public int TotalLoad { get; set; }
         public int SignalsCount { get; set; }
 
-        public Link(int startNode, int endNode, int numberOfModules, int moduleCost, int linkModule)
+        public Link(int id, int startNode, int endNode, int numberOfModules, int moduleCost, int linkModule)
         {
+            LinkId = id;
             StartNode = startNode;
             EndNode = endNode;
             NumberOfModules = numberOfModules;

@@ -32,7 +32,7 @@ namespace OAST.Project1.DataAccess.OutputWriter
 
         private static string CreateFileName(MenuOptions menuOptions)
         {
-            return ($"{menuOptions.AlgorithmType}_{menuOptions.ProblemType}_ {Extensions.GetFileName(menuOptions.FileName)}.json");
+            return ($"{menuOptions.AlgorithmType}_{menuOptions.ProblemType}_{Extensions.GetFileName(menuOptions.FileName)}.json");
         }
     }
 }

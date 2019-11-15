@@ -6,29 +6,54 @@ using System.Text;
 
 namespace OAST.Project1.Services.Helpers
 {
-    public class DDAPCostCalculator
+    public class CostCalculator
     {
         public OptimizationResult CalculateDDAPCost(Network network)
         {
             OptimizationResult result = new OptimizationResult(network);
 
             FillLinksWithLoad(result);
-            CalculateLinksCost(result);
-
+            DDAPCalculateLinksCost(result);
             return result;
         }
 
-        private void CalculateLinksCost(OptimizationResult result)
+        public OptimizationResult CalculateDAPCost(Network network)
+        {
+            OptimizationResult result = new OptimizationResult(network);
+
+            FillLinksWithLoad(result);
+            DAPCalculateLinksCost(result);
+            return result;
+        }
+
+        private void DDAPCalculateLinksCost(OptimizationResult result)
         {
             foreach(Link link in result.Links)
             {
-                result.TotalCost += GetLinkCost(link);
+                result.TotalCost += GetLinkModulesNumber(link) * link.ModuleCost;
             }
         }
 
-        private double GetLinkCost(Link link)
+        private void DAPCalculateLinksCost(OptimizationResult result)
         {
-            return Math.Ceiling(Convert.ToDouble(link.TotalLoad) / Convert.ToDouble(link.LinkModule)) * link.ModuleCost;
+            foreach (Link link in result.Links)
+            {
+                var modules = GetLinkModulesNumber(link);
+                if (modules <= link.NumberOfModules)
+                {
+                    result.TotalCost += GetLinkModulesNumber(link) * link.ModuleCost;
+                }
+                else
+                {
+                    result.TotalCost = Double.MaxValue;
+                    return;
+                }
+            }
+        }
+
+        private double GetLinkModulesNumber(Link link)
+        {
+            return Math.Ceiling(Convert.ToDouble(link.TotalLoad) / Convert.ToDouble(link.LinkModule));
         }
 
         private void FillLinksWithLoad(OptimizationResult result)

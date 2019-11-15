@@ -18,7 +18,7 @@ namespace OAST.Project1.Services.Optimization
             if (_menuOptions.AlgorithmType == AlgorithmType.BruteForce)
             {
                 var bruteForceService = new BruteForceService(_menuOptions);
-                bruteForceService.OptimizeNetwork();
+                bruteForceService.OptimizeNetwork(_menuOptions.ProblemType);
             }
             else if (_menuOptions.AlgorithmType == AlgorithmType.Evolutionary)
             {

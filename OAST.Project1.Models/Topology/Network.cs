@@ -34,6 +34,7 @@ namespace OAST.Project1.Models.Topology
             foreach(Link link in links)
             {
                 link.TotalLoad = 0;
+                link.SignalsCount = 0;
             }
             return links;
         }

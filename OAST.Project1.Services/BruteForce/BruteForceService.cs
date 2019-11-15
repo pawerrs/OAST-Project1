@@ -17,7 +17,7 @@ namespace OAST.Project1.Services.BruteForce
         private readonly Network _network;
         private FileParserService _fileParser; 
         private List<DemandDistributions> _allDistributions = new List<DemandDistributions>();
-        private DDAPCostCalculator calculator;
+        private CostCalculator calculator;
         private OptimizationResult bestOptimizationResult;
         public BruteForceService(MenuOptions menuOptions)
         {
@@ -26,22 +26,12 @@ namespace OAST.Project1.Services.BruteForce
 
             _fileParser = new FileParserService(fileReaderService, fileName);
             _network = _fileParser.LoadTopology(_fileParser.GetConfigurationLines());
-            calculator = new DDAPCostCalculator();
+            calculator = new CostCalculator();
             bestOptimizationResult = new OptimizationResult(_network);
             bestOptimizationResult.TotalCost = Double.MaxValue;
         }
 
-        public async Task SolveDAP()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public async Task SolveDDAP()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void OptimizeNetwork()
+        public void OptimizeNetwork(ProblemType problemType)
         {
             Console.WriteLine("Enumerating combinations...");
             foreach (Demand demand in _network.Demands)
@@ -53,21 +43,21 @@ namespace OAST.Project1.Services.BruteForce
 
             Console.WriteLine("All possible combinations enumerated.");
             ShowNumberOfCombinations();
-            FindCheapestPath();
+            FindCheapestPath(problemType);
             Console.WriteLine("All possible combinations checked. BruteForce algorythm has finished.");
         }
 
         private void ShowNumberOfCombinations()
         {
-            int numberOfCombinations = 1;
+            double magnitudeOfCombinations = 0;
             foreach(DemandDistributions demandDistributions in _allDistributions)
             {
-                numberOfCombinations *= demandDistributions.distributions.Count();
+                magnitudeOfCombinations += Math.Log10(demandDistributions.distributions.Count());
             }
-            Console.WriteLine("Please wait where {0} combinations are checked to find cheapest one...", numberOfCombinations);
+            Console.WriteLine("Please wait while approximately 10e{0} combinations are checked to find the cheapest one...", magnitudeOfCombinations);
         }
 
-        private void FindCheapestPath()
+        private void FindCheapestPath(ProblemType problemType)
         {
 
             int[] chosenDemandDistribution = new int[_allDistributions.Count()];
@@ -79,13 +69,13 @@ namespace OAST.Project1.Services.BruteForce
             bool finishFlag = true;
             while (finishFlag)
             {
-                CountNetworkCost(chosenDemandDistribution);
+                CountNetworkCost(chosenDemandDistribution, problemType);
                 ChangePathCombination(ref finishFlag, chosenDemandDistribution, 0);
             }
 
         }
 
-        private void CountNetworkCost(int[] chosenDemandDistribution)
+        private void CountNetworkCost(int[] chosenDemandDistribution, ProblemType problemType)
         {
             Network networkToCalculate = _network.Clone();
             for (int demandIndex = 0; demandIndex < chosenDemandDistribution.Length; demandIndex++)
@@ -95,7 +85,7 @@ namespace OAST.Project1.Services.BruteForce
                     networkToCalculate.Demands[demandIndex].DemandPaths[pathIndex].Load = _allDistributions[demandIndex].distributions[chosenDemandDistribution[demandIndex]][pathIndex];
                 }
             }
-            OptimizationResult calculationResult = calculator.CalculateDDAPCost(networkToCalculate);
+            OptimizationResult calculationResult = problemType == ProblemType.DDAP ? calculator.CalculateDDAPCost(networkToCalculate) : calculator.CalculateDAPCost(networkToCalculate);
             if (bestOptimizationResult.TotalCost > calculationResult.TotalCost)
             {
                 bestOptimizationResult = calculationResult;

@@ -116,7 +116,7 @@ namespace OAST.Project1.DataAccess.FileParser
             var id = 0;
             foreach (var path in lines)
             {
-                var linkList = Array.ConvertAll(path.Split(null), int.Parse);
+                var linkList = Array.ConvertAll(path.Split(null), int.Parse).Skip(1).ToArray();
 
                 yield return new DemandPath(++id, linkList);
             }

@@ -1,8 +1,6 @@
 ﻿using OAST.Project1.Models.Output;
 using OAST.Project1.Models.Topology;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace OAST.Project1.Services.Helpers
 {
@@ -63,11 +61,11 @@ namespace OAST.Project1.Services.Helpers
                 foreach (DemandPath demandPath in demand.DemandPaths)
                 {
                     //result.Links.FindAll(x => demandPath.LinkList.)
-                    for (int i = 0; i < demandPath.LinkList.Length; i++)
+                    foreach (var t in demandPath.LinkList)
                     {
                         if (demandPath.Load > 0)
                         {
-                            Link tempLink = result.Links.Find(x => x.LinkId == demandPath.LinkList[i]);
+                            Link tempLink = result.Links.Find(x => x.LinkId == t);
                             tempLink.TotalLoad += demandPath.Load;
                             tempLink.SignalsCount++;
                         }

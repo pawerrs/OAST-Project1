@@ -1,5 +1,6 @@
 ﻿using System;
 using OAST.Project1.Common.Enums;
+using OAST.Project1.Helpers;
 using OAST.Project1.Models.Common;
 using OAST.Project1.Models.Genetic;
 

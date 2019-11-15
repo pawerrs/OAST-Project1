@@ -12,13 +12,11 @@ namespace OAST.Project1.DataAccess.Tests.FileParser
     {
         private readonly IFileParserService _fileParserService;
         private const string TestedFile = "net12_1.txt";
-        private List<string> _fileLines;
 
         public ReadingDemandsTests()
         {
             IFileReaderService fileReaderService = new FileReaderService();
             _fileParserService = new FileParserService(fileReaderService, TestedFile);
-            _fileLines = _fileParserService.GetConfigurationLines();
         }
 
         [Fact]

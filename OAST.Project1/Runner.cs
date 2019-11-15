@@ -4,7 +4,7 @@ namespace OAST.Project1
 {
     class Runner
     {
-        static void Main(string[] args)
+        static void Main()
         {
             var menuOptions = Menu.DisplayMenu();
 

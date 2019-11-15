@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using OAST.Project1.Common.Enums;
+﻿using OAST.Project1.Common.Enums;
 
 namespace OAST.Project1.Common.Extensions
 {
@@ -9,19 +7,6 @@ namespace OAST.Project1.Common.Extensions
         public static bool IsPositiveAndLessThanOne(float value, bool shouldBeLessThanOne)
         {
             return value > 0 & (!shouldBeLessThanOne || value < 1);
-        }
-
-        static long CalculateBinomialCoefficient(long n, long k)
-        {
-            long r = 1;
-            long d;
-            if (k > n) return 0;
-            for (d = 1; d <= k; d++)
-            {
-                r *= n--;
-                r /= d;
-            }
-            return r;
         }
 
         public static long CalculateCombinationsWithRepetitionCount(long n, long k)

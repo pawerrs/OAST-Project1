@@ -1,7 +1,6 @@
 ﻿
 using System;
 using System.IO;
-using System.Text;
 using OAST.Project1.Models.Common;
 using System.Text.Json;
 using OAST.Project1.Common.Extensions;
@@ -12,7 +11,7 @@ namespace OAST.Project1.DataAccess.OutputWriter
     {
         public void SaveOutputToTheFile<T>(T result, MenuOptions menuOptions)
         {
-            File.WriteAllText(Path.Combine(GetFilePath(), @"Output\", CreateFileName(menuOptions).ToString()), Serialize(result));
+            File.WriteAllText(Path.Combine(GetFilePath(), @"Output\", CreateFileName(menuOptions)), Serialize(result));
         }
 
         private static string Serialize<T>(T value)
@@ -31,9 +30,9 @@ namespace OAST.Project1.DataAccess.OutputWriter
             return Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..\\..\\..\\..\\"));
         }
 
-        private static StringBuilder CreateFileName(MenuOptions menuOptions)
+        private static string CreateFileName(MenuOptions menuOptions)
         {
-            return new StringBuilder(menuOptions.AlgorithmType + "_" + menuOptions.ProblemType + "_" + Extensions.GetFileName(menuOptions.FileName) +  ".json");
+            return ($"{menuOptions.AlgorithmType}_{menuOptions.ProblemType}_ {Extensions.GetFileName(menuOptions.FileName)}.json");
         }
     }
 }

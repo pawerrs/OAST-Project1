@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace OAST.Project1.Models.Topology
 {
     public class Network
     {
-        public int NumberOfLinks { get; set; } = 0;
+        public int NumberOfLinks { get; set; }
         public List<Link> Links { get; set; }
-        public int NumberOfDemands { get; set; } = 0;
+        public int NumberOfDemands { get; set; }
         public List<Demand> Demands { get; set; }
         public List<PossibleDemandPathLoadSet> PossibleLinkLoads { get; set; }
 

@@ -13,7 +13,6 @@ namespace OAST.Project1.DataAccess.FileParser
         IEnumerable<Demand> LoadAllDemands();
         List<string> GetDemandSection();
         Demand GetOneDemand(List<string> demandSection);
-        IEnumerable<DemandPath> GetDemandPath(IEnumerable<string> lines);
         List<string> GetConfigurationLines();
         void SetCurrentLineNumber(int number);
         void SetNumberOfDemands(int number);

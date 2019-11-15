@@ -13,7 +13,7 @@ using OAST.Project1.DataAccess.OutputWriter;
 
 namespace OAST.Project1.Services.BruteForce
 {
-    public class BruteForceService : IBruteForceService
+    public class BruteForceService
     {
         private readonly Network _network;
         private readonly List<DemandDistributions> _allDistributions = new List<DemandDistributions>();
@@ -51,8 +51,8 @@ namespace OAST.Project1.Services.BruteForce
 
         private void ShowNumberOfCombinations()
         {
-            double magnitudeOfCombinations = _allDistributions.Sum(demandDistributions => Math.Log10(demandDistributions.distributions.Count()));
-            Console.WriteLine("Please wait while approximately 10e{0} combinations are checked to find the cheapest one...", magnitudeOfCombinations);
+            double magnitudeOfCombinations = _allDistributions.Sum(demandDistributions => Math.Log10(demandDistributions.Distributions.Count()));
+            Console.WriteLine($"Please wait while approximately 10e {magnitudeOfCombinations} combinations are checked to find the cheapest one...");
         }
 
         private void FindCheapestPath(ProblemType problemType)
@@ -80,20 +80,20 @@ namespace OAST.Project1.Services.BruteForce
             {
                 for (int pathIndex = 0; pathIndex < networkToCalculate.Demands[demandIndex].DemandPaths.Count(); pathIndex++)
                 {
-                    networkToCalculate.Demands[demandIndex].DemandPaths[pathIndex].Load = _allDistributions[demandIndex].distributions[chosenDemandDistribution[demandIndex]][pathIndex];
+                    networkToCalculate.Demands[demandIndex].DemandPaths[pathIndex].Load = _allDistributions[demandIndex].Distributions[chosenDemandDistribution[demandIndex]][pathIndex];
                 }
             }
             OptimizationResult calculationResult = problemType == ProblemType.DDAP ? _calculator.CalculateDDAPCost(networkToCalculate) : _calculator.CalculateDAPCost(networkToCalculate);
             if (_bestOptimizationResult.TotalCost > calculationResult.TotalCost)
             {
                 _bestOptimizationResult = calculationResult;
-                Console.WriteLine("Network cost reduced to {0}", _bestOptimizationResult.TotalCost);
+                Console.WriteLine($"Network cost reduced to {_bestOptimizationResult.TotalCost}");
             }
         }
 
         private void ChangePathCombination(ref bool finishFlag, int[] chosenDemandDistributions, int position)
         {
-            if(chosenDemandDistributions[position] + 1 < _allDistributions[position].distributions.Count())
+            if(chosenDemandDistributions[position] + 1 < _allDistributions[position].Distributions.Count())
             {
                 chosenDemandDistributions[position]++;
             }

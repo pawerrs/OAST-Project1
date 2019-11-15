@@ -42,7 +42,7 @@ namespace OAST.Project1.DataAccess.Tests.FileParser
             const int firstLinkLine = 1;
 
             int lastId = 18;
-            var lastExpectedLinkObject = new Link(lastId, 1, 6, 2, 1, 96); ;
+            var lastExpectedLinkObject = new Link(lastId, 1, 6, 2, 1, 96); 
             const int lastLinkLine = 18;
 
             //Act

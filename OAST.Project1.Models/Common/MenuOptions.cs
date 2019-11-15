@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using OAST.Project1.Common.Enums;
+﻿using OAST.Project1.Common.Enums;
 using OAST.Project1.Models.Genetic;
 
 namespace OAST.Project1.Models.Common

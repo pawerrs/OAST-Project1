@@ -13,28 +13,27 @@ namespace OAST.Project1
 
             GeneticAlgorithmParameters geneticAlgorithmParameters = null;
 
-            // algorithm type
             AlgorithmType algorithmType = UserInteractions.GetAlgorithmType();
 
-            //input parameters
             if (algorithmType == AlgorithmType.Evolutionary)
             {
                 geneticAlgorithmParameters = GetEvolutionaryAlgorithmParameters();
             }
             
-            // file with topology name
             FileName fileName = UserInteractions.SelectTopologyFile();
 
-            // DAP or DDAP
             ProblemType problemType = UserInteractions.SelectProblemToSolve();
 
-            return new MenuOptions
+            var menuOptions =  new MenuOptions
             {
                 AlgorithmType = algorithmType,
                 FileName = fileName,
                 ProblemType = problemType,
                 GeneticAlgorithmParameters = geneticAlgorithmParameters
             };
+            ConsoleHelpers.PrintPickedScenario(menuOptions);
+
+            return menuOptions;
         }
 
         private static GeneticAlgorithmParameters GetEvolutionaryAlgorithmParameters()
@@ -62,7 +61,7 @@ namespace OAST.Project1
                     UserInteractions.GetVariableFromUser("Please, set maximal number of generations with no improvement: ", out limitValue);
                     break;
             }
-
+            ConsoleHelpers.ClearConsole();
             return new GeneticAlgorithmParameters
             {
                 InitialPopulationSize = (int)populationSize,

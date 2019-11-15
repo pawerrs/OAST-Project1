@@ -16,10 +16,5 @@ namespace OAST.Project1.DataAccess.FileReader
             Console.WriteLine("File does not exist");
             return null;
         }
-
-        public string GetFileName(FileName fileName)
-        {
-            return $"{fileName.ToString().ToLower()}.txt";
-        }
     }
 }

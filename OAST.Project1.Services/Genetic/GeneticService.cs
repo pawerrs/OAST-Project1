@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using OAST.Project1.Models.Genetic;
 using OAST.Project1.Common.Enums;
+using OAST.Project1.Common.Extensions;
 using OAST.Project1.DataAccess.FileParser;
 using OAST.Project1.DataAccess.FileReader;
 using OAST.Project1.Models.Common;
@@ -21,7 +22,7 @@ namespace OAST.Project1.Services.Genetic
         public GeneticService(MenuOptions menuOptions)
         {
             IFileReaderService fileReaderService = new FileReaderService();
-            var fileName = fileReaderService.GetFileName(menuOptions.FileName);
+            var fileName = Extensions.GetFileName(menuOptions.FileName);
             IFileParserService fileParser = new FileParserService(fileReaderService, fileName);
 
             _network = fileParser.LoadTopology(fileParser.GetConfigurationLines());

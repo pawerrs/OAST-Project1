@@ -4,6 +4,7 @@ using System.IO;
 using System.Text;
 using OAST.Project1.Models.Common;
 using System.Text.Json;
+using OAST.Project1.Common.Extensions;
 
 namespace OAST.Project1.DataAccess.OutputWriter
 {
@@ -14,7 +15,7 @@ namespace OAST.Project1.DataAccess.OutputWriter
             File.WriteAllText(Path.Combine(GetFilePath(), @"Output\", CreateFileName(menuOptions).ToString()), Serialize(result));
         }
 
-        public string Serialize<T>(T value)
+        private static string Serialize<T>(T value)
         {
             var options = new JsonSerializerOptions
             {
@@ -25,14 +26,14 @@ namespace OAST.Project1.DataAccess.OutputWriter
             return JsonSerializer.Serialize(value, options);
         }
 
-        public string GetFilePath()
+        private static string GetFilePath()
         {
             return Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..\\..\\..\\..\\"));
         }
 
-        public StringBuilder CreateFileName(MenuOptions menuOptions)
+        private static StringBuilder CreateFileName(MenuOptions menuOptions)
         {
-            return new StringBuilder(menuOptions.AlgorithmType + "_" + menuOptions.ProblemType + "_" + menuOptions.FileName +  ".json");
+            return new StringBuilder(menuOptions.AlgorithmType + "_" + menuOptions.ProblemType + "_" + Extensions.GetFileName(menuOptions.FileName) +  ".json");
         }
     }
 }

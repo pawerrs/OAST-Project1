@@ -75,7 +75,6 @@ namespace OAST.Project1
         public static ProblemType SelectProblemToSolve()
         {
             ConsoleHelpers.ClearConsole();
-            Console.WriteLine("***********************************************************");
             Console.WriteLine("Choose problem type. Please type in number 1 or 2");
             Console.WriteLine("1: DDAP");
             Console.WriteLine("2: DAP");
@@ -83,6 +82,7 @@ namespace OAST.Project1
             var userInput = Console.ReadLine();
             if (int.TryParse(userInput, out var selectedNumber) && !(selectedNumber > 2 || selectedNumber < 1))
             {
+                ConsoleHelpers.ClearConsole();
                 return (ProblemType) selectedNumber;
             }
 

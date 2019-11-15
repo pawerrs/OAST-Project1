@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using OAST.Project1.Common.Enums;
 
 namespace OAST.Project1.Common.Extensions
 {
@@ -39,6 +40,11 @@ namespace OAST.Project1.Common.Extensions
             }
 
             return f * Factorial(f - 1);
+        }
+
+        public static string GetFileName(FileName fileName)
+        {
+            return $"{fileName.ToString().ToLower()}.txt";
         }
     }
 }

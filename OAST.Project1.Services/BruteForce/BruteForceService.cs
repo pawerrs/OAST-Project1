@@ -8,6 +8,7 @@ using OAST.Project1.Services.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using OAST.Project1.Common.Extensions;
 using OAST.Project1.DataAccess.OutputWriter;
 
 namespace OAST.Project1.Services.BruteForce
@@ -18,12 +19,12 @@ namespace OAST.Project1.Services.BruteForce
         private readonly List<DemandDistributions> _allDistributions = new List<DemandDistributions>();
         private readonly CostCalculator _calculator;
         private OptimizationResult _bestOptimizationResult;
-        private MenuOptions _menuOptions;
+        private readonly MenuOptions _menuOptions;
         public BruteForceService(MenuOptions menuOptions)
         {
             _menuOptions = menuOptions;
             IFileReaderService fileReaderService = new FileReaderService();
-            var fileName = fileReaderService.GetFileName(_menuOptions.FileName);
+            var fileName = Extensions.GetFileName(_menuOptions.FileName);
             var fileParser = new FileParserService(fileReaderService, fileName);
             _network = fileParser.LoadTopology(fileParser.GetConfigurationLines());
             _calculator = new CostCalculator();

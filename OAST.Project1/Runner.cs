@@ -1,6 +1,4 @@
-﻿using OAST.Project1.Common.Enums;
-using OAST.Project1.Models.Common;
-using OAST.Project1.Services.Optimization;
+﻿using OAST.Project1.Services.Optimization;
 
 namespace OAST.Project1
 {

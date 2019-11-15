@@ -8,30 +8,29 @@ using OAST.Project1.Services.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using OAST.Project1.DataAccess.OutputWriter;
 
 namespace OAST.Project1.Services.BruteForce
 {
     public class BruteForceService : IBruteForceService
     {
         private readonly Network _network;
-        private FileParserService _fileParser; 
-        private List<DemandDistributions> _allDistributions = new List<DemandDistributions>();
-        private CostCalculator calculator;
-        private OptimizationResult bestOptimizationResult;
+        private readonly List<DemandDistributions> _allDistributions = new List<DemandDistributions>();
+        private readonly CostCalculator _calculator;
+        private OptimizationResult _bestOptimizationResult;
+        private MenuOptions _menuOptions;
         public BruteForceService(MenuOptions menuOptions)
         {
+            _menuOptions = menuOptions;
             IFileReaderService fileReaderService = new FileReaderService();
-            var fileName = fileReaderService.GetFileName(menuOptions.FileName);
-
-            _fileParser = new FileParserService(fileReaderService, fileName);
-            _network = _fileParser.LoadTopology(_fileParser.GetConfigurationLines());
-            calculator = new CostCalculator();
-            bestOptimizationResult = new OptimizationResult(_network);
-            bestOptimizationResult.TotalCost = Double.MaxValue;
+            var fileName = fileReaderService.GetFileName(_menuOptions.FileName);
+            var fileParser = new FileParserService(fileReaderService, fileName);
+            _network = fileParser.LoadTopology(fileParser.GetConfigurationLines());
+            _calculator = new CostCalculator();
+            _bestOptimizationResult = new OptimizationResult(_network) {TotalCost = double.MaxValue};
         }
 
-        public void OptimizeNetwork(ProblemType problemType)
+        public void OptimizeNetwork()
         {
             Console.WriteLine("Enumerating combinations...");
             foreach (Demand demand in _network.Demands)
@@ -43,17 +42,15 @@ namespace OAST.Project1.Services.BruteForce
 
             Console.WriteLine("All possible combinations enumerated.");
             ShowNumberOfCombinations();
-            FindCheapestPath(problemType);
-            Console.WriteLine("All possible combinations checked. BruteForce algorythm has finished.");
+            FindCheapestPath(_menuOptions.ProblemType);
+            Console.WriteLine("All possible combinations checked. BruteForce algorithm has finished.");
+
+            new OutputWriter().SaveOutputToTheFile(_bestOptimizationResult, _menuOptions);
         }
 
         private void ShowNumberOfCombinations()
         {
-            double magnitudeOfCombinations = 0;
-            foreach(DemandDistributions demandDistributions in _allDistributions)
-            {
-                magnitudeOfCombinations += Math.Log10(demandDistributions.distributions.Count());
-            }
+            double magnitudeOfCombinations = _allDistributions.Sum(demandDistributions => Math.Log10(demandDistributions.distributions.Count()));
             Console.WriteLine("Please wait while approximately 10e{0} combinations are checked to find the cheapest one...", magnitudeOfCombinations);
         }
 
@@ -85,11 +82,11 @@ namespace OAST.Project1.Services.BruteForce
                     networkToCalculate.Demands[demandIndex].DemandPaths[pathIndex].Load = _allDistributions[demandIndex].distributions[chosenDemandDistribution[demandIndex]][pathIndex];
                 }
             }
-            OptimizationResult calculationResult = problemType == ProblemType.DDAP ? calculator.CalculateDDAPCost(networkToCalculate) : calculator.CalculateDAPCost(networkToCalculate);
-            if (bestOptimizationResult.TotalCost > calculationResult.TotalCost)
+            OptimizationResult calculationResult = problemType == ProblemType.DDAP ? _calculator.CalculateDDAPCost(networkToCalculate) : _calculator.CalculateDAPCost(networkToCalculate);
+            if (_bestOptimizationResult.TotalCost > calculationResult.TotalCost)
             {
-                bestOptimizationResult = calculationResult;
-                Console.WriteLine("Network cost reduced to {0}", bestOptimizationResult.TotalCost);
+                _bestOptimizationResult = calculationResult;
+                Console.WriteLine("Network cost reduced to {0}", _bestOptimizationResult.TotalCost);
             }
         }
 
@@ -104,7 +101,6 @@ namespace OAST.Project1.Services.BruteForce
                 if (position == _allDistributions.Count() - 1)
                 {
                     finishFlag = false;
-                    return;
                 }
                 else
                 {

@@ -96,6 +96,8 @@ namespace OAST.Project1.Services.Genetic
                 state.NumberOfGenerations++;
             }
 
+            state.ElapsedTime.Stop();
+
             DoPostSolveActivities(state);
         }
 
@@ -127,8 +129,6 @@ namespace OAST.Project1.Services.Genetic
 
             var eliteCount = Math.Max(eliteOffspringsCount, 1);
             var nonEliteOffspringsCount = population.Chromosomes.Count - eliteCount;
-            var nonEliteOffsprings = new List<Chromosome>(population.Chromosomes.OrderByDescending(x => x.Fitness).ToList()
-                .GetRange(eliteCount, nonEliteOffspringsCount));
 
             for (var i = 0; i < nonEliteOffspringsCount / 2; i++)
             {
@@ -166,8 +166,14 @@ namespace OAST.Project1.Services.Genetic
 
         private void DoPostSolveActivities(GeneticAlgorithmState state)
         {
-            Console.WriteLine("Best solution found: " + state.BestChromosomeOptimizationResult.TotalCost);
-            //_outputWriter.SaveOutputToTheFile(bestSolutionResult, _menuOptions);
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine($"Best solution found: {state.BestChromosomeOptimizationResult.TotalCost}");
+            Console.ForegroundColor = ConsoleColor.DarkCyan;
+
+            Console.WriteLine($"Genetic Algorithm exited after {(double)state.ElapsedTime.ElapsedMilliseconds / 1000} seconds. " +
+                              $"Generations cultured: {state.NumberOfGenerations}.");
+
+            _outputWriter.SaveOutputToTheFile(state.BestChromosomeOptimizationResult, _menuOptions);
         }
 
         private void PrintBestAlgorithmInGeneration(GeneticAlgorithmState state, bool bestResult)

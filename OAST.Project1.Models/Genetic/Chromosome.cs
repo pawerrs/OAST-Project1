@@ -10,5 +10,7 @@ namespace OAST.Project1.Models.Genetic
         public abstract List<Chromosome> Crossover(Chromosome chromosomeToCrossWith, Random random);
 
         public abstract Chromosome Mutate(Random random);
+
+        public abstract Chromosome Clone();
     }
 }

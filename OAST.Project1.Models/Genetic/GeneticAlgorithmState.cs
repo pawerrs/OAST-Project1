@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using OAST.Project1.Models.Output;
 
 namespace OAST.Project1.Models.Genetic
 {
@@ -12,6 +13,8 @@ namespace OAST.Project1.Models.Genetic
 
         public int NumberOfGenerationsWithoutImprovement { get; set; }
 
-        public Chromosome BestChromosome { get; set; }
+        public OptimizationResult BestChromosomeOptimizationResult { get; set; }
+
+        public int BestChromosomeFitness { get; set; }
     }
 }

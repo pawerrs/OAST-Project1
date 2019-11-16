@@ -7,9 +7,14 @@ namespace OAST.Project1.Models.Topology
 {
     public class NetworkSolution : Chromosome
     {
+        public NetworkSolution()
+        {
+        }
+
         public NetworkSolution(Network network, Random random)
         {
             FlowAllocations = new List<FlowAllocation>();
+            PossibleDemandPathLoads = new Dictionary<Demand, Dictionary<int, List<DemandPathLoad>>>();
 
             for (var i = 1; i < network.NumberOfDemands + 1; i++)
             {
@@ -45,10 +50,10 @@ namespace OAST.Project1.Models.Topology
             var lastPartLength = FlowAllocations.Count - crossoverPoint;
 
             var parent1FirstPart = FlowAllocations.GetRange(0, firstPartLength);
-            var parent1LastPart = FlowAllocations.GetRange(lastPartLength, lastPartLength);
+            var parent1LastPart = FlowAllocations.GetRange(firstPartLength, lastPartLength);
 
             var parent2FirstPart = parent2.FlowAllocations.GetRange(0, firstPartLength);
-            var parent2LastPart = parent2.FlowAllocations.GetRange(lastPartLength, lastPartLength);
+            var parent2LastPart = parent2.FlowAllocations.GetRange(firstPartLength, lastPartLength);
 
             var child1 = (Chromosome) new NetworkSolution(parent1FirstPart.Concat(parent2LastPart).ToList(), PossibleDemandPathLoads);
             var child2 = (Chromosome) new NetworkSolution(parent2FirstPart.Concat(parent1LastPart).ToList(), PossibleDemandPathLoads);
@@ -65,12 +70,23 @@ namespace OAST.Project1.Models.Topology
             var flowAllocationToMutate = flowAllocations.Single(x => x.Demand.Id == geneToMutate);
             flowAllocations.Remove(flowAllocationToMutate);
 
-            var newAllocationId = random.Next(PossibleDemandPathLoads.Count - 1);
-            flowAllocationToMutate.DemandPathLoads = PossibleDemandPathLoads[flowAllocationToMutate.Demand][newAllocationId];
+            var newAllocationId = random.Next(PossibleDemandPathLoads[flowAllocationToMutate.Demand].Count - 1);
+            var newDemandPathLoads = PossibleDemandPathLoads[flowAllocationToMutate.Demand][newAllocationId];
+            var mutatedFlowAllocation = new FlowAllocation(flowAllocationToMutate.Demand, newDemandPathLoads);
 
-            flowAllocations.Insert(geneToMutate - 1, flowAllocationToMutate);
+            flowAllocations.Insert(geneToMutate - 1, mutatedFlowAllocation);
 
             return new NetworkSolution(flowAllocations, PossibleDemandPathLoads);
+        }
+
+        public override Chromosome Clone()
+        {
+            return new NetworkSolution
+            {
+                Fitness = Fitness,
+                FlowAllocations = new List<FlowAllocation>(FlowAllocations),
+                PossibleDemandPathLoads = new Dictionary<Demand, Dictionary<int, List<DemandPathLoad>>>(PossibleDemandPathLoads)
+            };
         }
     }
 }

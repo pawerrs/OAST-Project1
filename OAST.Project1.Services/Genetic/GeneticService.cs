@@ -85,18 +85,83 @@ namespace OAST.Project1.Services.Genetic
                     PrintBestAlgorithmInGeneration(state, false);
                 }
 
-                var parents = SelectParents(population, random);
-                var children = CrossoverParents(parents, random);
-                var mutatedChildren = MutateChildren(children, state, random);
+                var eliteOffsprings = SelectEliteOffsprings(population);
+                var crossoveredOffsprings = CrossoverOffsprings(population, eliteOffsprings.Count, random);
+                var mutatedOffsprings = MutateOffsprings(crossoveredOffsprings, state, random);
 
-                EvaluateFitness(mutatedChildren);
+                EvaluateFitness(mutatedOffsprings);
 
-                population = SelectSurvivors(population, mutatedChildren);
+                population = SelectSurvivors(population, eliteOffsprings, mutatedOffsprings);
 
                 state.NumberOfGenerations++;
             }
 
             DoPostSolveActivities(state);
+        }
+
+        private List<Chromosome> MutateOffsprings(List<Chromosome> crossoveredOffsprings, GeneticAlgorithmState state, Random random)
+        {
+            var mutatedOffsprings = new List<Chromosome>();
+
+            foreach (var offspring in crossoveredOffsprings)
+            {
+                var rand = random.NextDouble();
+                if (rand >= _parameters.MutationProbability)
+                {
+                    state.NumberOfMutations++;
+
+                    mutatedOffsprings.Add(offspring.Mutate(random));
+                }
+                else
+                {
+                    mutatedOffsprings.Add(offspring);
+                }
+            }
+
+            return mutatedOffsprings;
+        }
+
+        private List<Chromosome> CrossoverOffsprings(Population population, int eliteOffspringsCount, Random random)
+        {
+            var crossoveredOffsprings = new List<Chromosome>();
+
+            var eliteCount = Math.Max(eliteOffspringsCount, 1);
+            var nonEliteOffspringsCount = population.Chromosomes.Count - eliteCount;
+            var nonEliteOffsprings = new List<Chromosome>(population.Chromosomes.OrderByDescending(x => x.Fitness).ToList()
+                .GetRange(eliteCount, nonEliteOffspringsCount));
+
+            for (var i = 0; i < nonEliteOffspringsCount / 2; i++)
+            {
+                var offspring1 = population.Chromosomes[i];
+                var offspring2 = population.Chromosomes[nonEliteOffspringsCount - 1 - i];
+
+                var rand = random.NextDouble();
+                if (rand >= _parameters.CrossoverProbability)
+                {
+                    var crossoveredPair = offspring1.Crossover(offspring2, random);
+                    crossoveredOffsprings.AddRange(crossoveredPair);
+                }
+                else
+                {
+                    crossoveredOffsprings.Add(offspring1);
+                    crossoveredOffsprings.Add(offspring2);
+                }
+            }
+
+            if (nonEliteOffspringsCount % 2 != 0)
+            {
+                crossoveredOffsprings.Add(population.Chromosomes[nonEliteOffspringsCount / 2]);
+            }
+
+            return crossoveredOffsprings;
+        }
+
+        private List<Chromosome> SelectEliteOffsprings(Population population)
+        {
+            var elitePercentage = 0.1;
+            var eliteOffspringsCount = (int) Math.Max(elitePercentage * population.Chromosomes.Count, 1);
+
+            return new List<Chromosome>(population.Chromosomes.OrderByDescending(x => x.Fitness).Take(eliteOffspringsCount));
         }
 
         private void DoPostSolveActivities(GeneticAlgorithmState state)
@@ -212,15 +277,17 @@ namespace OAST.Project1.Services.Genetic
             return children;
         }
 
-        private Population SelectSurvivors(Population population, List<Chromosome> children)
+        private Population SelectSurvivors(Population population, List<Chromosome> eliteOffsprings, List<Chromosome> newOffsprings)
         {
-            var weakestChromosomes = population.Chromosomes.OrderBy(x => x.Fitness).Take(2).ToList();
-            var newGeneration = population.Chromosomes.OrderByDescending(x => x.Fitness).Take(_parameters.InitialPopulationSize - 2);
-            var candidates = weakestChromosomes.Concat(children);
+            var remainingOffspringsCount = population.Chromosomes.Count - eliteOffsprings.Count;
 
-            newGeneration = newGeneration.Concat(candidates.OrderByDescending(x => x.Fitness).Take(2)).ToList();
+            var weakestChromosomes = population.Chromosomes.OrderBy(x => x.Fitness).Take(remainingOffspringsCount).ToList();
+            var candidates = weakestChromosomes.Concat(newOffsprings);
 
-            return new Population(newGeneration.ToList());
+            var newGeneration = candidates.OrderByDescending(x => x.Fitness).Take(remainingOffspringsCount).ToList();
+            newGeneration.AddRange(eliteOffsprings);
+
+            return new Population(newGeneration);
         }
 
         private Population GenerateInitialPopulation(Random random)

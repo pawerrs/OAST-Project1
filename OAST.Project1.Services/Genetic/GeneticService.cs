@@ -198,89 +198,15 @@ namespace OAST.Project1.Services.Genetic
                 var networkSolution = (NetworkSolution)chromosome;
                 var calculationResult = CalculateNetworkSolutionOptimizationResult(networkSolution);
 
-                networkSolution.Fitness = (int)(1000000 / calculationResult.TotalCost);
-            }
-        }
-
-        private List<Chromosome> SelectParents(Population population, Random random)
-        {
-            var generation = new List<Chromosome>(population.Chromosomes).OrderBy(x => x.Fitness).ToList();
-            var parents = new List<Chromosome>();
-
-            var sum = generation.Sum(x => x.Fitness);
-
-            for (var i = 0; i < 2; i++)
-            {
-                var r = random.Next(sum);
-
-                var currentSum = 0;
-                foreach (var chromosome in generation)
+                if (calculationResult.TotalCost == 0)
                 {
-                    currentSum += chromosome.Fitness;
-
-                    if (currentSum <= r)
-                    {
-                        continue;
-                    }
-
-                    var networkSolution = (NetworkSolution)chromosome;
-                    parents.Add(new NetworkSolution(networkSolution.FlowAllocations, networkSolution.PossibleDemandPathLoads));
-                    break;
+                    networkSolution.Fitness = int.MaxValue;
+                }
+                else
+                {
+                    networkSolution.Fitness = (int)(1000000 / calculationResult.TotalCost);
                 }
             }
-
-            return parents;
-        }
-
-        private List<Chromosome> MutateChildren(List<Chromosome> children, GeneticAlgorithmState state, Random random)
-        {
-            var mutatedChildren = new List<Chromosome>();
-
-            var rand = random.NextDouble();
-            if (rand >= _parameters.MutationProbability)
-            {
-                state.NumberOfMutations++;
-
-                mutatedChildren.Add(children[0].Mutate(random));
-            }
-            else
-            {
-                mutatedChildren.Add(children[0]);
-            }
-
-            rand = random.NextDouble();
-            if (rand >= _parameters.MutationProbability)
-            {
-                state.NumberOfMutations++;
-
-                mutatedChildren.Add(children[1].Mutate(random));
-            }
-            else
-            {
-                mutatedChildren.Add(children[1]);
-            }
-
-            return children;
-        }
-
-        private List<Chromosome> CrossoverParents(List<Chromosome> parents, Random random)
-        {
-            List<Chromosome> children;
-
-            var rand = random.NextDouble();
-            if (rand >= _parameters.CrossoverProbability)
-            {
-                var parent1 = parents[0];
-                var parent2 = parents[1];
-
-                children = parent1.Crossover(parent2, random);
-            }
-            else
-            {
-                children = parents;
-            }
-
-            return children;
         }
 
         private Population SelectSurvivors(Population population, List<Chromosome> eliteOffsprings, List<Chromosome> newOffsprings)

@@ -1,6 +1,8 @@
 ﻿using OAST.Project1.Models.Output;
 using OAST.Project1.Models.Topology;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace OAST.Project1.Services.Helpers
 {
@@ -34,19 +36,16 @@ namespace OAST.Project1.Services.Helpers
 
         private void DAPCalculateLinksCost(OptimizationResult result)
         {
+            var linkOverloads = new List<double>();
             foreach (Link link in result.Links)
             {
-                var modules = GetLinkModulesNumber(link);
-                if (modules <= link.NumberOfModules)
-                {
-                    result.TotalCost += GetLinkModulesNumber(link) * link.ModuleCost;
-                }
-                else
-                {
-                    result.TotalCost = Double.MaxValue;
-                    return;
-                }
+                var linkModules = GetLinkModulesNumber(link);
+                var overload = Math.Max(0, linkModules - link.NumberOfModules);
+
+                linkOverloads.Add(overload);
             }
+
+            result.TotalCost = linkOverloads.Max();
         }
 
         private double GetLinkModulesNumber(Link link)

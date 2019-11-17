@@ -9,9 +9,9 @@ namespace OAST.Project1
     {
         public static AlgorithmType GetAlgorithmType()
         {
+            ConsoleHelpers.ClearConsole();
             while (true)
             {
-                ConsoleHelpers.ClearConsole();
                 Console.WriteLine("Choose an algorithm");
                 Console.WriteLine("1. Evolutionary Algorithm");
                 Console.WriteLine("2. BruteForce Algorithm");
@@ -19,6 +19,7 @@ namespace OAST.Project1
                 var userInput = Console.ReadLine();
                 if (int.TryParse(userInput, out var selectedNumber) && !(selectedNumber > 2 || selectedNumber < 1))
                 {
+                    ConsoleHelpers.ClearConsole();
                     return (AlgorithmType)selectedNumber;
                 }
 
@@ -28,12 +29,12 @@ namespace OAST.Project1
 
         public static void GetVariableFromUser(string question, out float numberToReturn, bool shouldBeLessThanOne = false)
         {
-            ConsoleHelpers.ClearConsole();
             Console.WriteLine(question);
             var userInput = Console.ReadLine();
 
             if (float.TryParse(userInput, out float number) && Extensions.IsPositiveAndLessThanOne(number, shouldBeLessThanOne))
             {
+                ConsoleHelpers.ClearConsole();
                 numberToReturn = number;
             }
             else
@@ -47,19 +48,22 @@ namespace OAST.Project1
         public static FileName SelectTopologyFile()
         {
             ConsoleHelpers.ClearConsole();
-            Console.WriteLine("Choose topology file. Please type in number 1,2,3");
-            Console.WriteLine("1: net12_1.txt");
-            Console.WriteLine("2: net12_2.txt");
-            Console.WriteLine("3: net4.txt");
-
-            var userInput = Console.ReadLine();
-            if (int.TryParse(userInput, out var selectedNumber) && !(selectedNumber > 3 || selectedNumber < 1))
+            while (true)
             {
-                return GetFileBasedOnUserInput(selectedNumber);
-            }
+                Console.WriteLine("Choose topology file. Please type in number 1,2,3");
+                Console.WriteLine("1: net12_1.txt");
+                Console.WriteLine("2: net12_2.txt");
+                Console.WriteLine("3: net4.txt");
 
-            ConsoleHelpers.DisplayError(userInput);
-            return SelectTopologyFile();
+                var userInput = Console.ReadLine();
+                if (int.TryParse(userInput, out var selectedNumber) && !(selectedNumber > 3 || selectedNumber < 1))
+                {
+                    ConsoleHelpers.ClearConsole();
+                    return GetFileBasedOnUserInput(selectedNumber);
+                }
+
+                ConsoleHelpers.DisplayError(userInput);
+            }
         }
 
         private static FileName GetFileBasedOnUserInput(int number)
@@ -76,37 +80,43 @@ namespace OAST.Project1
         public static ProblemType SelectProblemToSolve()
         {
             ConsoleHelpers.ClearConsole();
-            Console.WriteLine("Choose problem type. Please type in number 1 or 2");
-            Console.WriteLine("1: DDAP");
-            Console.WriteLine("2: DAP");
-
-            var userInput = Console.ReadLine();
-            if (int.TryParse(userInput, out var selectedNumber) && !(selectedNumber > 2 || selectedNumber < 1))
+            while (true)
             {
-                ConsoleHelpers.ClearConsole();
-                return (ProblemType) selectedNumber;
-            }
+                Console.WriteLine("Choose problem type. Please type in number 1 or 2");
+                Console.WriteLine("1: DDAP");
+                Console.WriteLine("2: DAP");
 
-            ConsoleHelpers.DisplayError(userInput);
-            return SelectProblemToSolve();
+                var userInput = Console.ReadLine();
+                if (int.TryParse(userInput, out var selectedNumber) && !(selectedNumber > 2 || selectedNumber < 1))
+                {
+                    ConsoleHelpers.ClearConsole();
+                    return (ProblemType) selectedNumber;
+                }
+
+                ConsoleHelpers.DisplayError(userInput);
+            }
         }
 
         public static StoppingCriteria SelectStoppingCriteria()
         {
-            Console.WriteLine("Choose stopping criteria for evolutionary algorithm. Please type in number 1,2,3 or 4");
-            Console.WriteLine("1: Elapsed time");
-            Console.WriteLine("2: Number of generations");
-            Console.WriteLine("3: Number of mutations");
-            Console.WriteLine("4: No improvement since last N generations");
-
-            var userInput = Console.ReadLine();
-            if (int.TryParse(userInput, out var selectedNumber) && !(selectedNumber > 4 || selectedNumber < 1))
+            ConsoleHelpers.ClearConsole();
+            while (true)
             {
-                return (StoppingCriteria)selectedNumber;
-            }
+                Console.WriteLine("Choose stopping criteria for evolutionary algorithm. Please type in number 1,2,3 or 4");
+                Console.WriteLine("1: Elapsed time");
+                Console.WriteLine("2: Number of generations");
+                Console.WriteLine("3: Number of mutations");
+                Console.WriteLine("4: No improvement since last N generations");
 
-            ConsoleHelpers.DisplayError(userInput);
-            return SelectStoppingCriteria();
+                var userInput = Console.ReadLine();
+                if (int.TryParse(userInput, out var selectedNumber) && !(selectedNumber > 4 || selectedNumber < 1))
+                {
+                    ConsoleHelpers.ClearConsole();
+                    return (StoppingCriteria) selectedNumber;
+                }
+
+                ConsoleHelpers.DisplayError(userInput);
+            }
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using OAST.Project1.Services.Optimization;
+﻿using System;
+using OAST.Project1.Services.Optimization;
 
 namespace OAST.Project1
 {
@@ -10,6 +11,7 @@ namespace OAST.Project1
 
             var optimizationService = new OptimizationService(menuOptions);
             optimizationService.OptimizeNetwork();
+            Console.ReadKey();
         }
     }
 }

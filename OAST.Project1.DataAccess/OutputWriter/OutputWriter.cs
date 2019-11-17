@@ -27,12 +27,14 @@ namespace OAST.Project1.DataAccess.OutputWriter
 
         private static string GetFilePath()
         {
-            return Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..\\..\\..\\..\\"));
+            return Extensions.CheckIfReleaseConfiguration("OAST.Project1.dll")? 
+                Path.GetFullPath(Path.Combine(AppContext.BaseDirectory)): Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..\\..\\..\\..\\"));
         }
 
         private static string CreateFileName(MenuOptions menuOptions)
         {
             return ($"{menuOptions.AlgorithmType}_{menuOptions.ProblemType}_{Extensions.GetFileName(menuOptions.FileName)}.json");
         }
+
     }
 }

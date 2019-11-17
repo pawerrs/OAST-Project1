@@ -7,7 +7,7 @@
       "numberOfModules": 72,
       "moduleCost": 1,
       "linkModule": 2,
-      "totalLoad": 6,
+      "totalLoad": 10,
       "signalsCount": 0
     },
     {
@@ -17,7 +17,7 @@
       "numberOfModules": 72,
       "moduleCost": 1,
       "linkModule": 2,
-      "totalLoad": 6,
+      "totalLoad": 8,
       "signalsCount": 0
     },
     {
@@ -37,7 +37,7 @@
       "numberOfModules": 72,
       "moduleCost": 1,
       "linkModule": 2,
-      "totalLoad": 7,
+      "totalLoad": 11,
       "signalsCount": 0
     },
     {
@@ -242,5 +242,5 @@
       ]
     }
   ],
-  "totalCost": 13
+  "totalCost": 0
 }

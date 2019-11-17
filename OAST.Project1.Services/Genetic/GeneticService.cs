@@ -59,7 +59,14 @@ namespace OAST.Project1.Services.Genetic
 
             var bestChromosome = population.Chromosomes.OrderByDescending(x => x.Fitness).First();
             state.BestChromosomeOptimizationResult = CalculateNetworkSolutionOptimizationResult((NetworkSolution)bestChromosome);
-            state.BestChromosomeFitness = (int) (1000000 / state.BestChromosomeOptimizationResult.TotalCost);
+            if (state.BestChromosomeOptimizationResult.TotalCost != 0)
+            {
+                state.BestChromosomeFitness = (int)(1000000 / state.BestChromosomeOptimizationResult.TotalCost);
+            }
+            else
+            {
+                state.BestChromosomeFitness = int.MaxValue;
+            }
 
             PrintBestAlgorithmInGeneration(state, true);
 

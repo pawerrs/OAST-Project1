@@ -7,7 +7,7 @@
       "numberOfModules": 2,
       "moduleCost": 1,
       "linkModule": 96,
-      "totalLoad": 202,
+      "totalLoad": 251,
       "signalsCount": 0
     },
     {
@@ -17,7 +17,7 @@
       "numberOfModules": 2,
       "moduleCost": 1,
       "linkModule": 96,
-      "totalLoad": 258,
+      "totalLoad": 227,
       "signalsCount": 0
     },
     {
@@ -27,7 +27,7 @@
       "numberOfModules": 2,
       "moduleCost": 1,
       "linkModule": 96,
-      "totalLoad": 226,
+      "totalLoad": 216,
       "signalsCount": 0
     },
     {
@@ -37,7 +37,7 @@
       "numberOfModules": 2,
       "moduleCost": 1,
       "linkModule": 96,
-      "totalLoad": 240,
+      "totalLoad": 226,
       "signalsCount": 0
     },
     {
@@ -47,7 +47,7 @@
       "numberOfModules": 2,
       "moduleCost": 1,
       "linkModule": 96,
-      "totalLoad": 296,
+      "totalLoad": 336,
       "signalsCount": 0
     },
     {
@@ -57,7 +57,7 @@
       "numberOfModules": 2,
       "moduleCost": 1,
       "linkModule": 96,
-      "totalLoad": 181,
+      "totalLoad": 156,
       "signalsCount": 0
     },
     {
@@ -67,7 +67,7 @@
       "numberOfModules": 2,
       "moduleCost": 1,
       "linkModule": 96,
-      "totalLoad": 266,
+      "totalLoad": 229,
       "signalsCount": 0
     },
     {
@@ -77,7 +77,7 @@
       "numberOfModules": 2,
       "moduleCost": 1,
       "linkModule": 96,
-      "totalLoad": 175,
+      "totalLoad": 191,
       "signalsCount": 0
     },
     {
@@ -87,7 +87,7 @@
       "numberOfModules": 2,
       "moduleCost": 1,
       "linkModule": 96,
-      "totalLoad": 169,
+      "totalLoad": 168,
       "signalsCount": 0
     },
     {
@@ -97,7 +97,7 @@
       "numberOfModules": 2,
       "moduleCost": 1,
       "linkModule": 96,
-      "totalLoad": 222,
+      "totalLoad": 182,
       "signalsCount": 0
     },
     {
@@ -107,7 +107,7 @@
       "numberOfModules": 2,
       "moduleCost": 1,
       "linkModule": 96,
-      "totalLoad": 299,
+      "totalLoad": 348,
       "signalsCount": 0
     },
     {
@@ -117,7 +117,7 @@
       "numberOfModules": 2,
       "moduleCost": 1,
       "linkModule": 96,
-      "totalLoad": 256,
+      "totalLoad": 212,
       "signalsCount": 0
     },
     {
@@ -127,7 +127,7 @@
       "numberOfModules": 2,
       "moduleCost": 1,
       "linkModule": 96,
-      "totalLoad": 246,
+      "totalLoad": 228,
       "signalsCount": 0
     },
     {
@@ -137,7 +137,7 @@
       "numberOfModules": 2,
       "moduleCost": 1,
       "linkModule": 96,
-      "totalLoad": 292,
+      "totalLoad": 382,
       "signalsCount": 0
     },
     {
@@ -147,7 +147,7 @@
       "numberOfModules": 2,
       "moduleCost": 1,
       "linkModule": 96,
-      "totalLoad": 167,
+      "totalLoad": 195,
       "signalsCount": 0
     },
     {
@@ -157,7 +157,7 @@
       "numberOfModules": 2,
       "moduleCost": 1,
       "linkModule": 96,
-      "totalLoad": 111,
+      "totalLoad": 128,
       "signalsCount": 0
     },
     {
@@ -167,7 +167,7 @@
       "numberOfModules": 2,
       "moduleCost": 1,
       "linkModule": 96,
-      "totalLoad": 154,
+      "totalLoad": 169,
       "signalsCount": 0
     },
     {
@@ -177,7 +177,7 @@
       "numberOfModules": 2,
       "moduleCost": 1,
       "linkModule": 96,
-      "totalLoad": 211,
+      "totalLoad": 251,
       "signalsCount": 0
     }
   ],
@@ -2967,5 +2967,5 @@
       ]
     }
   ],
-  "totalCost": 2
+  "totalCost": 1
 }

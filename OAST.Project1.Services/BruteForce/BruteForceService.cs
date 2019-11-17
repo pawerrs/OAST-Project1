@@ -7,6 +7,7 @@ using OAST.Project1.Models.Topology;
 using OAST.Project1.Services.Helpers;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using OAST.Project1.Common.Extensions;
 using OAST.Project1.DataAccess.OutputWriter;
@@ -34,6 +35,9 @@ namespace OAST.Project1.Services.BruteForce
         public void OptimizeNetwork()
         {
             Console.WriteLine("Enumerating combinations...");
+
+            var elapsedTime = Stopwatch.StartNew();
+
             foreach (Demand demand in _network.Demands)
             {
                 DemandDistributions demandDistributions = new DemandDistributions(demand.Id);
@@ -44,6 +48,9 @@ namespace OAST.Project1.Services.BruteForce
             Console.WriteLine("All possible combinations enumerated.");
             ShowNumberOfCombinations();
             FindCheapestPath(_menuOptions.ProblemType);
+            elapsedTime.Stop();
+            Console.WriteLine(
+                $"BruteForce Algorithm exited after {(double) elapsedTime.ElapsedMilliseconds / 1000} seconds. ");
             Console.WriteLine("All possible combinations checked. BruteForce algorithm has finished.");
 
             new OutputWriter().SaveOutputToTheFile(_bestOptimizationResult, _menuOptions);
